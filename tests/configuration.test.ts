@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -86,6 +87,24 @@ test("runtime schema and committed migration contain the same integrity triggers
   )].sort();
   assert.ok(runtimeTriggers.length >= 9);
   assert.deepEqual(migrationTriggers, runtimeTriggers);
+});
+
+test("the committed migrations execute as complete SQLite scripts", async () => {
+  const db = new DatabaseSync(":memory:");
+  try {
+    for (const filename of [
+      "0000_messy_tyrannus.sql",
+      "0001_peaceful_northstar.sql",
+      "0002_far_maximus.sql",
+      "0003_certain_reptil.sql",
+      "0004_clean_karma.sql",
+    ]) {
+      const migration = await readFile(new URL(`drizzle/${filename}`, root), "utf8");
+      assert.doesNotThrow(() => db.exec(migration), filename);
+    }
+  } finally {
+    db.close();
+  }
 });
 
 test("live ingestion requires both private runtime values", async () => {

@@ -10,8 +10,8 @@ CREATE TABLE `__new_ingestion_run` (
 	`expected_count` integer DEFAULT 0 NOT NULL,
 	`resolved_count` integer DEFAULT 0 NOT NULL,
 	`failure_count` integer DEFAULT 0 NOT NULL,
-	CONSTRAINT "ingestion_run_status_check" CHECK("__new_ingestion_run"."status" IN ('running', 'succeeded', 'partial', 'failed')),
-	CONSTRAINT "ingestion_run_trigger_check" CHECK("__new_ingestion_run"."trigger_kind" IN ('scheduled', 'manual'))
+	CONSTRAINT "ingestion_run_status_check" CHECK("status" IN ('running', 'succeeded', 'partial', 'failed')),
+	CONSTRAINT "ingestion_run_trigger_check" CHECK("trigger_kind" IN ('scheduled', 'manual'))
 );
 --> statement-breakpoint
 INSERT INTO `__new_ingestion_run`("id", "source", "trigger_kind", "started_at", "finished_at", "status", "latest_session", "expected_count", "resolved_count", "failure_count") SELECT "id", "source", 'manual', "started_at", "finished_at", "status", "latest_session", "expected_count", "resolved_count", "failure_count" FROM `ingestion_run`;--> statement-breakpoint
