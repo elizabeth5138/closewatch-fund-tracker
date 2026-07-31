@@ -494,8 +494,7 @@ function normalizeTriggerDefinition(sql: string): string {
   return sql
     .replace(/IF\s+NOT\s+EXISTS/gi, "")
     .replace(/[`"\s]/g, "")
-    .replace(/;$/, "")
-    .toLowerCase();
+    .replace(/;$/, "");
 }
 
 const expectedTriggerDefinitions = new Map(

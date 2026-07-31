@@ -114,3 +114,46 @@ test("failed ingestion repairs a missing trigger from an otherwise current bundl
     sqlite.close();
   }
 });
+
+test("failed ingestion repairs a case-sensitive literal mutation with every trigger name present", async () => {
+  const { sqlite, db } = await migrationOnlyDatabase();
+  try {
+    await recordFailedIngestionRun(
+      db,
+      "configuration",
+      "initial bootstrap",
+      new Date("2026-07-30T11:00:00Z"),
+    );
+    const current = sqlite.prepare(
+      `SELECT sql FROM sqlite_master
+       WHERE type = 'trigger' AND name = 'record_event_validate_insert'`,
+    ).get() as { sql: string };
+    const staleDefinition = current.sql.replace("'status'", "'STATUS'");
+    assert.notEqual(staleDefinition, current.sql);
+    sqlite.exec("DROP TRIGGER record_event_validate_insert");
+    sqlite.exec(staleDefinition);
+
+    await recordFailedIngestionRun(
+      db,
+      "configuration",
+      "repair bootstrap",
+      new Date("2026-07-30T11:02:00Z"),
+    );
+    const repaired = sqlite.prepare(
+      `SELECT sql FROM sqlite_master
+       WHERE type = 'trigger' AND name = 'record_event_validate_insert'`,
+    ).get() as { sql: string };
+    assert.match(repaired.sql, /'status'/);
+    assert.doesNotMatch(repaired.sql, /'STATUS'/);
+
+    const result = await runDailyIngestion(
+      db,
+      new BootstrapProvider(),
+      new Date("2026-07-30T11:04:00Z"),
+      "scheduled",
+    );
+    assert.equal(result.failed.length, 0);
+  } finally {
+    sqlite.close();
+  }
+});
