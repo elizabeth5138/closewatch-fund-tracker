@@ -2,6 +2,7 @@ import { statusAfterArrivalWindow, type CandidateObservation } from "./domain.ts
 import { barForSession, type PriceProvider, type ProviderBar } from "./provider.ts";
 import {
   applyObservation,
+  ensureSchema,
   getDailyRecord,
   getTrackedFunds,
   seedWatchlist,
@@ -291,6 +292,7 @@ export async function recordFailedIngestionRun(
 ): Promise<string> {
   const runId = crypto.randomUUID();
   const timestamp = now.toISOString();
+  await ensureSchema(db);
   await acquireLease(db, runId, now);
   try {
     await startRun(db, runId, source, timestamp, triggerKind);
@@ -429,6 +431,7 @@ export async function runDailyIngestion(
   ).toISOString();
   const startedAt = occurredAt();
   const runId = crypto.randomUUID();
+  await ensureSchema(db);
   await acquireLease(db, runId, now);
   const summary: IngestionSummary = {
     runId,

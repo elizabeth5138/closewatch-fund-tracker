@@ -314,7 +314,7 @@ test("schema triggers make event creation atomic and append-only", async (t) => 
   );
 });
 
-test("the committed migration installs the same protected event ledger", async (t) => {
+test("the pre-write schema bootstrap installs the protected event ledger", async (t) => {
   const { mf, db } = await makeDb();
   t.after(() => mf.dispose());
   await seedWatchlist(db);

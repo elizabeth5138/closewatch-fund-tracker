@@ -6,17 +6,13 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 
 test("hosting declares durable storage and two Singapore-day reconciliation triggers", async () => {
-  const [hostingRaw, vite, worker, builtWrangler, stagedHosting, stagedMigration, stagedSecondMigration, stagedThirdMigration, stagedFourthMigration, stagedFifthMigration] = await Promise.all([
+  const [hostingRaw, vite, worker, builtWrangler, stagedHosting, stagedMigration] = await Promise.all([
     readFile(new URL(".openai/hosting.json", root), "utf8"),
     readFile(new URL("vite.config.ts", root), "utf8"),
     readFile(new URL("worker/index.ts", root), "utf8"),
     readFile(new URL("dist/server/wrangler.json", root), "utf8"),
     readFile(new URL("dist/.openai/hosting.json", root), "utf8"),
-    readFile(new URL("dist/.openai/drizzle/0000_messy_tyrannus.sql", root), "utf8"),
-    readFile(new URL("dist/.openai/drizzle/0001_peaceful_northstar.sql", root), "utf8"),
-    readFile(new URL("dist/.openai/drizzle/0002_far_maximus.sql", root), "utf8"),
-    readFile(new URL("dist/.openai/drizzle/0003_certain_reptil.sql", root), "utf8"),
-    readFile(new URL("dist/.openai/drizzle/0004_clean_karma.sql", root), "utf8"),
+    readFile(new URL("dist/.openai/drizzle/0000_square_wendigo.sql", root), "utf8"),
   ]);
   const hosting = JSON.parse(hostingRaw);
   const compiledWorker = JSON.parse(builtWrangler);
@@ -31,13 +27,11 @@ test("hosting declares durable storage and two Singapore-day reconciliation trig
     "45 9 * * 2-6",
   ]);
   assert.equal(JSON.parse(stagedHosting).d1, "DB");
-  assert.match(stagedMigration, /CREATE TRIGGER `record_event_validate_insert`/);
-  assert.match(stagedSecondMigration, /`trigger_kind` text DEFAULT 'manual' NOT NULL/);
-  assert.match(stagedSecondMigration, /SELECT "id", "source", 'manual'/);
-  assert.match(stagedThirdMigration, /CREATE TABLE `ingestion_lease`/);
-  assert.match(stagedThirdMigration, /INSERT INTO `ingestion_lease`/);
-  assert.match(stagedFourthMigration, /CREATE TABLE `ingestion_expectation`/);
-  assert.match(stagedFifthMigration, /CREATE TABLE `reference_session`/);
+  assert.match(stagedMigration, /CREATE TABLE `daily_record`/);
+  assert.match(stagedMigration, /CREATE TABLE `ingestion_lease`/);
+  assert.match(stagedMigration, /CREATE TABLE `ingestion_expectation`/);
+  assert.match(stagedMigration, /CREATE TABLE `reference_session`/);
+  assert.doesNotMatch(stagedMigration, /CREATE TRIGGER/);
 });
 
 test("the schedule covers each US weekday close, including Friday, within 24 hours", () => {
@@ -66,39 +60,29 @@ test("the schedule covers each US weekday close, including Friday, within 24 hou
   }
 });
 
-test("runtime schema and committed migration contain the same integrity triggers", async () => {
-  const [runtimeSchema, ...migrations] = await Promise.all([
+test("ingestion installs the runtime integrity triggers before any write", async () => {
+  const [runtimeSchema, ingestion] = await Promise.all([
     readFile(new URL("lib/store.ts", root), "utf8"),
-    readFile(new URL("drizzle/0000_messy_tyrannus.sql", root), "utf8"),
-    readFile(new URL("drizzle/0001_peaceful_northstar.sql", root), "utf8"),
-    readFile(new URL("drizzle/0002_far_maximus.sql", root), "utf8"),
-    readFile(new URL("drizzle/0003_certain_reptil.sql", root), "utf8"),
-    readFile(new URL("drizzle/0004_clean_karma.sql", root), "utf8"),
+    readFile(new URL("lib/ingestion.ts", root), "utf8"),
   ]);
   const runtimeTriggers = [...new Set(
     [...runtimeSchema.matchAll(/CREATE TRIGGER IF NOT EXISTS ([a-z_]+)/g)]
       .map((match) => match[1]),
   )].sort();
-  const migrationTriggers = [...new Set(
-    migrations.flatMap((migration) =>
-      [...migration.matchAll(/CREATE TRIGGER `([a-z_]+)`/g)]
-        .map((match) => match[1]),
-    ),
-  )].sort();
   assert.ok(runtimeTriggers.length >= 9);
-  assert.deepEqual(migrationTriggers, runtimeTriggers);
+  assert.match(runtimeSchema, /record_event_no_delete/);
+  const dailyBootstrap = ingestion.indexOf("await ensureSchema(db);", ingestion.indexOf("runDailyIngestion"));
+  const failedBootstrap = ingestion.indexOf("await ensureSchema(db);", ingestion.indexOf("recordFailedIngestionRun"));
+  assert.ok(dailyBootstrap > 0);
+  assert.ok(failedBootstrap > 0);
+  assert.ok(dailyBootstrap < ingestion.indexOf("await acquireLease", dailyBootstrap));
+  assert.ok(failedBootstrap < ingestion.indexOf("await acquireLease", failedBootstrap));
 });
 
 test("the committed migrations execute as complete SQLite scripts", async () => {
   const db = new DatabaseSync(":memory:");
   try {
-    for (const filename of [
-      "0000_messy_tyrannus.sql",
-      "0001_peaceful_northstar.sql",
-      "0002_far_maximus.sql",
-      "0003_certain_reptil.sql",
-      "0004_clean_karma.sql",
-    ]) {
+    for (const filename of ["0000_square_wendigo.sql"]) {
       const migration = await readFile(new URL(`drizzle/${filename}`, root), "utf8");
       assert.doesNotThrow(() => db.exec(migration), filename);
     }

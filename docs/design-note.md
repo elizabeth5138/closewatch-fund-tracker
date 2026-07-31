@@ -30,9 +30,10 @@ each watched US-listed, USD-denominated ETF or closed-end fund. Show 1-day,
     priced boundary, but write-time forward filling is forbidden.
 12. **Runs are single-flight.** A database lease rejects overlaps and rapid
     manual repeats, then recovers an abandoned run after fifteen minutes.
-13. **Read paths stay read-only.** Versioned deployment migrations are the
-    production schema authority; opening the dashboard performs no DDL or
-    bootstrap writes.
+13. **Read paths stay read-only.** A generated deployment migration owns the
+    tables and checks. Before an ingestion path can write, an idempotent D1
+    bootstrap installs the custom integrity triggers the host migration parser
+    cannot accept; opening the dashboard performs no DDL or bootstrap writes.
 14. **Historical denominators are immutable.** Reference sessions and every
     run's expected fund/session pairs are persisted; today's watchlist cannot
     rewrite yesterday's score.
@@ -50,7 +51,7 @@ accounts.
 ## Operational caveat
 
 The source declares a Singapore-morning capture at 23:15 UTC Monday–Friday and
-a reconciliation run at 10:15 UTC Tuesday–Saturday. Production readiness still
+a reconciliation run at 09:45 UTC Tuesday–Saturday. Production readiness still
 requires evidence from the deployed host that both triggers are registered,
 plus a real provider key. The hosted v1 remains private. The 20-session success
 gate cannot be claimed from fixtures or tests.

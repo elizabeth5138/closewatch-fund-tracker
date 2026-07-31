@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1785403130368,
-      "tag": "0000_messy_tyrannus",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1785491381194,
-      "tag": "0001_peaceful_northstar",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1785492482435,
-      "tag": "0002_far_maximus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1785492950532,
-      "tag": "0003_certain_reptil",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1785493755011,
-      "tag": "0004_clean_karma",
+      "when": 1785502094123,
+      "tag": "0000_square_wendigo",
       "breakpoints": true
     }
   ]

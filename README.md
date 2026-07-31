@@ -27,7 +27,7 @@ deployment without adding authentication first.
 - `db/` describes the permanent record-keeping structure.
 - `worker/` receives web requests and the scheduled morning wake-up.
 - `tests/` tries to break the rules before real data can.
-- `drizzle/` contains the database installation history.
+- `drizzle/` contains the host-compatible table installation history.
 - `.openai/hosting.json` tells the hosting platform that the site needs a
   database.
 
@@ -172,10 +172,14 @@ Generate a migration after changing `db/schema.ts`:
 npm run db:generate
 ```
 
-The SQL migration must also be reviewed for database checks and triggers;
-schema generators do not infer all of Closewatch's event-ledger invariants.
-Production code assumes these versioned migrations have run. Dashboard reads
-never create tables or seed data.
+The SQL migration must also be reviewed for database checks; schema generators
+do not infer all of Closewatch's event-ledger invariants. The migration creates
+the tables and checks that Sites can apply as one standard SQLite script. Before
+either scheduled or manual ingestion can write, `ensureSchema` idempotently
+installs the custom trigger-based integrity layer and singleton lease row. This
+split is deliberate: the Sites migration parser does not accept trigger bodies,
+while D1 prepared statements do. Dashboard reads never create tables, triggers,
+or seed data.
 
 ## Success criterion
 

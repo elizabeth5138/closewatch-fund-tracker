@@ -481,6 +481,10 @@ const schemaStatements = [
 ];
 
 export async function ensureSchema(db: D1Database): Promise<void> {
+  const installed = await db.prepare(
+    "SELECT name FROM sqlite_master WHERE type = 'trigger' AND name = 'record_event_no_delete'",
+  ).first<{ name: string }>();
+  if (installed?.name === "record_event_no_delete") return;
   await db.batch(schemaStatements.map((sql) => db.prepare(sql)));
 }
 
