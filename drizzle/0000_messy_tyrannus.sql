@@ -1,4 +1,4 @@
-CREATE TABLE `daily_record` (
+CREATE TABLE IF NOT EXISTS `daily_record` (
 	`fund_id` text NOT NULL,
 	`session_date` text NOT NULL,
 	`status` text NOT NULL,
@@ -36,9 +36,9 @@ CREATE TABLE `daily_record` (
       ))
 );
 --> statement-breakpoint
-CREATE INDEX `daily_record_session_idx` ON `daily_record` (`session_date`);--> statement-breakpoint
-CREATE INDEX `daily_record_status_idx` ON `daily_record` (`status`);--> statement-breakpoint
-CREATE TABLE `fetch_attempt` (
+CREATE INDEX IF NOT EXISTS `daily_record_session_idx` ON `daily_record` (`session_date`);--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS `daily_record_status_idx` ON `daily_record` (`status`);--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS `fetch_attempt` (
 	`id` text PRIMARY KEY NOT NULL,
 	`run_id` text NOT NULL,
 	`ticker` text NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE `fetch_attempt` (
 	CONSTRAINT "fetch_attempt_outcome_check" CHECK("fetch_attempt"."outcome" IN ('succeeded', 'failed'))
 );
 --> statement-breakpoint
-CREATE INDEX `fetch_attempt_run_idx` ON `fetch_attempt` (`run_id`);--> statement-breakpoint
-CREATE TABLE `fund_ticker` (
+CREATE INDEX IF NOT EXISTS `fetch_attempt_run_idx` ON `fetch_attempt` (`run_id`);--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS `fund_ticker` (
 	`fund_id` text NOT NULL,
 	`ticker` text NOT NULL,
 	`valid_from` text NOT NULL,
@@ -61,10 +61,10 @@ CREATE TABLE `fund_ticker` (
 	CONSTRAINT "fund_ticker_validity_check" CHECK("fund_ticker"."valid_to" IS NULL OR "fund_ticker"."valid_to" >= "fund_ticker"."valid_from")
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `fund_ticker_identity_idx` ON `fund_ticker` (`ticker`,`valid_from`);--> statement-breakpoint
-CREATE UNIQUE INDEX `fund_ticker_one_current_per_fund_idx` ON `fund_ticker` (`fund_id`) WHERE "fund_ticker"."valid_to" IS NULL;--> statement-breakpoint
-CREATE UNIQUE INDEX `fund_ticker_one_current_assignment_idx` ON `fund_ticker` (`ticker`) WHERE "fund_ticker"."valid_to" IS NULL;--> statement-breakpoint
-CREATE TABLE `fund` (
+CREATE UNIQUE INDEX IF NOT EXISTS `fund_ticker_identity_idx` ON `fund_ticker` (`ticker`,`valid_from`);--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS `fund_ticker_one_current_per_fund_idx` ON `fund_ticker` (`fund_id`) WHERE "fund_ticker"."valid_to" IS NULL;--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS `fund_ticker_one_current_assignment_idx` ON `fund_ticker` (`ticker`) WHERE "fund_ticker"."valid_to" IS NULL;--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS `fund` (
 	`id` text PRIMARY KEY NOT NULL,
 	`name` text NOT NULL,
 	`exchange` text NOT NULL,
@@ -77,28 +77,9 @@ CREATE TABLE `fund` (
 	CONSTRAINT "fund_currency_check" CHECK("fund"."currency" = 'USD')
 );
 --> statement-breakpoint
-CREATE TABLE `ingestion_expectation` (
-	`run_id` text NOT NULL,
-	`session_date` text NOT NULL,
-	`fund_id` text NOT NULL,
-	PRIMARY KEY(`run_id`, `session_date`, `fund_id`),
-	FOREIGN KEY (`run_id`) REFERENCES `ingestion_run`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`fund_id`) REFERENCES `fund`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE INDEX `ingestion_expectation_session_idx` ON `ingestion_expectation` (`session_date`);--> statement-breakpoint
-CREATE TABLE `ingestion_lease` (
-	`id` integer PRIMARY KEY NOT NULL,
-	`run_id` text,
-	`acquired_at` text,
-	`released_at` text,
-	CONSTRAINT "ingestion_lease_singleton_check" CHECK("ingestion_lease"."id" = 1)
-);
---> statement-breakpoint
-CREATE TABLE `ingestion_run` (
+CREATE TABLE IF NOT EXISTS `ingestion_run` (
 	`id` text PRIMARY KEY NOT NULL,
 	`source` text NOT NULL,
-	`trigger_kind` text DEFAULT 'manual' NOT NULL,
 	`started_at` text NOT NULL,
 	`finished_at` text,
 	`status` text NOT NULL,
@@ -106,11 +87,10 @@ CREATE TABLE `ingestion_run` (
 	`expected_count` integer DEFAULT 0 NOT NULL,
 	`resolved_count` integer DEFAULT 0 NOT NULL,
 	`failure_count` integer DEFAULT 0 NOT NULL,
-	CONSTRAINT "ingestion_run_status_check" CHECK("ingestion_run"."status" IN ('running', 'succeeded', 'partial', 'failed')),
-	CONSTRAINT "ingestion_run_trigger_check" CHECK("ingestion_run"."trigger_kind" IN ('scheduled', 'manual'))
+	CONSTRAINT "ingestion_run_status_check" CHECK("ingestion_run"."status" IN ('running', 'succeeded', 'partial', 'failed'))
 );
 --> statement-breakpoint
-CREATE TABLE `record_event` (
+CREATE TABLE IF NOT EXISTS `record_event` (
 	`id` text PRIMARY KEY NOT NULL,
 	`fund_id` text NOT NULL,
 	`session_date` text NOT NULL,
@@ -128,17 +108,12 @@ CREATE TABLE `record_event` (
       ))
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `record_event_version_idx` ON `record_event` (`fund_id`,`session_date`,`to_version`);--> statement-breakpoint
-CREATE INDEX `record_event_lookup_idx` ON `record_event` (`fund_id`,`session_date`);--> statement-breakpoint
-CREATE TABLE `reference_session` (
-	`session_date` text PRIMARY KEY NOT NULL,
-	`first_observed_at` text NOT NULL,
-	`source` text NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE `watchlist` (
+CREATE UNIQUE INDEX IF NOT EXISTS `record_event_version_idx` ON `record_event` (`fund_id`,`session_date`,`to_version`);--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS `record_event_lookup_idx` ON `record_event` (`fund_id`,`session_date`);--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS `watchlist` (
 	`fund_id` text PRIMARY KEY NOT NULL,
 	`active` integer DEFAULT true NOT NULL,
 	`added_at` text NOT NULL,
 	FOREIGN KEY (`fund_id`) REFERENCES `fund`(`id`) ON UPDATE no action ON DELETE no action
 );
+--> statement-breakpoint

@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "963a910c-e347-44f2-8d8d-e8b4b4d010d4",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "65fd18dc-61fc-4167-b401-85d3bbeb8648",
+  "prevId": "963a910c-e347-44f2-8d8d-e8b4b4d010d4",
   "tables": {
     "daily_record": {
       "name": "daily_record",
@@ -397,6 +397,14 @@
           "notNull": true,
           "autoincrement": false
         },
+        "trigger_kind": {
+          "name": "trigger_kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'manual'"
+        },
         "started_at": {
           "name": "started_at",
           "type": "text",
@@ -458,6 +466,10 @@
         "ingestion_run_status_check": {
           "name": "ingestion_run_status_check",
           "value": "\"ingestion_run\".\"status\" IN ('running', 'succeeded', 'partial', 'failed')"
+        },
+        "ingestion_run_trigger_check": {
+          "name": "ingestion_run_trigger_check",
+          "value": "\"ingestion_run\".\"trigger_kind\" IN ('scheduled', 'manual')"
         }
       }
     },

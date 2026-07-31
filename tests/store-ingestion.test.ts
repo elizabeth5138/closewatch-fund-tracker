@@ -9,6 +9,7 @@ import type { PriceProvider, ProviderBar } from "../lib/provider.ts";
 import {
   applyObservation,
   getDailyRecord,
+  INTEGRITY_TRIGGER_NAMES,
   seedWatchlist,
 } from "../lib/store.ts";
 import { makeTestDb as makeDb } from "./d1.ts";
@@ -315,21 +316,17 @@ test("schema triggers make event creation atomic and append-only", async (t) => 
 });
 
 test("the pre-write schema bootstrap installs the protected event ledger", async (t) => {
-  const { mf, db } = await makeDb();
+  const { mf, db } = await makeDb({ bootstrap: false });
   t.after(() => mf.dispose());
-  await seedWatchlist(db);
-  const candidate = {
-    fundId: "fund_spy",
-    sessionDate: "2026-07-29",
-    status: "priced" as const,
-    price: "100.12",
-    volume: "200",
-    source: "fixture_provider",
-  };
-  assert.equal(
-    await applyObservation(db, candidate, "2026-07-30T10:00:00Z"),
-    "created",
-  );
+  const session = "2026-07-29";
+  const provider = new FixtureProvider(Object.fromEntries(
+    ["SPY", "QQQ", "BND", "USA"].map((ticker) => [ticker, [priced(session, "100")]]),
+  ));
+  await runDailyIngestion(db, provider, new Date("2026-07-30T11:00:00Z"));
+  const installed = await db.prepare(
+    "SELECT count(*) AS count FROM sqlite_master WHERE type = 'trigger'",
+  ).first<{ count: number }>();
+  assert.equal(installed?.count, INTEGRITY_TRIGGER_NAMES.length);
   await assert.rejects(
     () =>
       db
@@ -340,6 +337,46 @@ test("the pre-write schema bootstrap installs the protected event ledger", async
         .run(),
     /event_required/,
   );
+});
+
+test("the failed-run path replaces a stale sentinel-only trigger bundle", async (t) => {
+  const { mf, db } = await makeDb({ bootstrap: false });
+  t.after(() => mf.dispose());
+  await db.prepare(
+    `CREATE TRIGGER record_event_no_delete
+     BEFORE DELETE ON record_event BEGIN SELECT 1; END`,
+  ).run();
+  await recordFailedIngestionRun(
+    db,
+    "configuration",
+    "provider key absent",
+    new Date("2026-07-30T11:00:00Z"),
+  );
+  const installed = await db.prepare(
+    "SELECT name, sql FROM sqlite_master WHERE type = 'trigger'",
+  ).all<{ name: string; sql: string }>();
+  assert.equal(installed.results.length, INTEGRITY_TRIGGER_NAMES.length);
+  const sentinel = installed.results.find(
+    (trigger) => trigger.name === "record_event_no_delete",
+  );
+  assert.match(sentinel?.sql ?? "", /record_event_is_append_only/);
+});
+
+test("the failed-run path repairs a missing integrity trigger", async (t) => {
+  const { mf, db } = await makeDb();
+  t.after(() => mf.dispose());
+  await db.prepare("DROP TRIGGER daily_record_no_direct_update").run();
+  await recordFailedIngestionRun(
+    db,
+    "configuration",
+    "provider key absent",
+    new Date("2026-07-30T11:00:00Z"),
+  );
+  const repaired = await db.prepare(
+    `SELECT sql FROM sqlite_master
+     WHERE type = 'trigger' AND name = 'daily_record_no_direct_update'`,
+  ).first<{ sql: string }>();
+  assert.match(repaired?.sql ?? "", /daily_record_event_required/);
 });
 
 test("daily ingestion is idempotent, revisable, and reference-session driven", async (t) => {

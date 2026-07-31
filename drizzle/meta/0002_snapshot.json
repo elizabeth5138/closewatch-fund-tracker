@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "963a910c-e347-44f2-8d8d-e8b4b4d010d4",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "c3996be3-6412-4e30-97ef-1da59a2fd10d",
+  "prevId": "65fd18dc-61fc-4167-b401-85d3bbeb8648",
   "tables": {
     "daily_record": {
       "name": "daily_record",
@@ -380,6 +380,49 @@
         }
       }
     },
+    "ingestion_lease": {
+      "name": "ingestion_lease",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "run_id": {
+          "name": "run_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "acquired_at": {
+          "name": "acquired_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "released_at": {
+          "name": "released_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "ingestion_lease_singleton_check": {
+          "name": "ingestion_lease_singleton_check",
+          "value": "\"ingestion_lease\".\"id\" = 1"
+        }
+      }
+    },
     "ingestion_run": {
       "name": "ingestion_run",
       "columns": {
@@ -396,6 +439,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "trigger_kind": {
+          "name": "trigger_kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'manual'"
         },
         "started_at": {
           "name": "started_at",
@@ -458,6 +509,10 @@
         "ingestion_run_status_check": {
           "name": "ingestion_run_status_check",
           "value": "\"ingestion_run\".\"status\" IN ('running', 'succeeded', 'partial', 'failed')"
+        },
+        "ingestion_run_trigger_check": {
+          "name": "ingestion_run_trigger_check",
+          "value": "\"ingestion_run\".\"trigger_kind\" IN ('scheduled', 'manual')"
         }
       }
     },

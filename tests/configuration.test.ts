@@ -6,13 +6,17 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 
 test("hosting declares durable storage and two Singapore-day reconciliation triggers", async () => {
-  const [hostingRaw, vite, worker, builtWrangler, stagedHosting, stagedMigration] = await Promise.all([
+  const [hostingRaw, vite, worker, builtWrangler, stagedHosting, ...stagedMigrations] = await Promise.all([
     readFile(new URL(".openai/hosting.json", root), "utf8"),
     readFile(new URL("vite.config.ts", root), "utf8"),
     readFile(new URL("worker/index.ts", root), "utf8"),
     readFile(new URL("dist/server/wrangler.json", root), "utf8"),
     readFile(new URL("dist/.openai/hosting.json", root), "utf8"),
-    readFile(new URL("dist/.openai/drizzle/0000_square_wendigo.sql", root), "utf8"),
+    readFile(new URL("dist/.openai/drizzle/0000_messy_tyrannus.sql", root), "utf8"),
+    readFile(new URL("dist/.openai/drizzle/0001_peaceful_northstar.sql", root), "utf8"),
+    readFile(new URL("dist/.openai/drizzle/0002_far_maximus.sql", root), "utf8"),
+    readFile(new URL("dist/.openai/drizzle/0003_certain_reptil.sql", root), "utf8"),
+    readFile(new URL("dist/.openai/drizzle/0004_clean_karma.sql", root), "utf8"),
   ]);
   const hosting = JSON.parse(hostingRaw);
   const compiledWorker = JSON.parse(builtWrangler);
@@ -27,11 +31,12 @@ test("hosting declares durable storage and two Singapore-day reconciliation trig
     "45 9 * * 2-6",
   ]);
   assert.equal(JSON.parse(stagedHosting).d1, "DB");
-  assert.match(stagedMigration, /CREATE TABLE `daily_record`/);
-  assert.match(stagedMigration, /CREATE TABLE `ingestion_lease`/);
-  assert.match(stagedMigration, /CREATE TABLE `ingestion_expectation`/);
-  assert.match(stagedMigration, /CREATE TABLE `reference_session`/);
-  assert.doesNotMatch(stagedMigration, /CREATE TRIGGER/);
+  const stagedSql = stagedMigrations.join("\n");
+  assert.match(stagedSql, /CREATE TABLE IF NOT EXISTS `daily_record`/);
+  assert.match(stagedSql, /CREATE TABLE IF NOT EXISTS `ingestion_lease`/);
+  assert.match(stagedSql, /CREATE TABLE IF NOT EXISTS `ingestion_expectation`/);
+  assert.match(stagedSql, /CREATE TABLE IF NOT EXISTS `reference_session`/);
+  assert.doesNotMatch(stagedSql, /CREATE TRIGGER/);
 });
 
 test("the schedule covers each US weekday close, including Friday, within 24 hours", () => {
@@ -82,9 +87,17 @@ test("ingestion installs the runtime integrity triggers before any write", async
 test("the committed migrations execute as complete SQLite scripts", async () => {
   const db = new DatabaseSync(":memory:");
   try {
-    for (const filename of ["0000_square_wendigo.sql"]) {
-      const migration = await readFile(new URL(`drizzle/${filename}`, root), "utf8");
-      assert.doesNotThrow(() => db.exec(migration), filename);
+    for (let pass = 1; pass <= 2; pass += 1) {
+      for (const filename of [
+        "0000_messy_tyrannus.sql",
+        "0001_peaceful_northstar.sql",
+        "0002_far_maximus.sql",
+        "0003_certain_reptil.sql",
+        "0004_clean_karma.sql",
+      ]) {
+        const migration = await readFile(new URL(`drizzle/${filename}`, root), "utf8");
+        assert.doesNotThrow(() => db.exec(migration), `${filename}, pass ${pass}`);
+      }
     }
   } finally {
     db.close();

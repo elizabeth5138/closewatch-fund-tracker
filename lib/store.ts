@@ -480,12 +480,61 @@ const schemaStatements = [
     END`,
 ];
 
-export async function ensureSchema(db: D1Database): Promise<void> {
+const integrityTriggerStatements = schemaStatements.filter((statement) =>
+  /^CREATE TRIGGER IF NOT EXISTS /m.test(statement),
+);
+
+export const INTEGRITY_TRIGGER_NAMES = integrityTriggerStatements.map((statement) => {
+  const name = /^CREATE TRIGGER IF NOT EXISTS ([a-z_]+)/m.exec(statement)?.[1];
+  if (!name) throw new Error("Integrity trigger is missing a stable name.");
+  return name;
+});
+
+function normalizeTriggerDefinition(sql: string): string {
+  return sql
+    .replace(/IF\s+NOT\s+EXISTS/gi, "")
+    .replace(/[`"\s]/g, "")
+    .replace(/;$/, "")
+    .toLowerCase();
+}
+
+const expectedTriggerDefinitions = new Map(
+  integrityTriggerStatements.map((statement, index) => [
+    INTEGRITY_TRIGGER_NAMES[index],
+    normalizeTriggerDefinition(statement),
+  ]),
+);
+
+async function hasCompleteIntegrityBundle(db: D1Database): Promise<boolean> {
+  const placeholders = INTEGRITY_TRIGGER_NAMES.map(() => "?").join(", ");
   const installed = await db.prepare(
-    "SELECT name FROM sqlite_master WHERE type = 'trigger' AND name = 'record_event_no_delete'",
-  ).first<{ name: string }>();
-  if (installed?.name === "record_event_no_delete") return;
-  await db.batch(schemaStatements.map((sql) => db.prepare(sql)));
+    `SELECT name, sql FROM sqlite_master
+     WHERE type = 'trigger' AND name IN (${placeholders})`,
+  ).bind(...INTEGRITY_TRIGGER_NAMES).all<{ name: string; sql: string | null }>();
+  if (installed.results.length !== INTEGRITY_TRIGGER_NAMES.length) return false;
+  return installed.results.every((trigger) =>
+    trigger.sql !== null &&
+    expectedTriggerDefinitions.get(trigger.name) === normalizeTriggerDefinition(trigger.sql),
+  );
+}
+
+export async function ensureSchema(db: D1Database): Promise<void> {
+  if (await hasCompleteIntegrityBundle(db)) {
+    await db.prepare(
+      `INSERT OR IGNORE INTO ingestion_lease
+       (id, run_id, acquired_at, released_at) VALUES (1, NULL, NULL, NULL)`,
+    ).run();
+    return;
+  }
+  const dropTriggers = INTEGRITY_TRIGGER_NAMES.map(
+    (name) => `DROP TRIGGER IF EXISTS ${name}`,
+  );
+  await db.batch(
+    [...dropTriggers, ...schemaStatements].map((sql) => db.prepare(sql)),
+  );
+  if (!(await hasCompleteIntegrityBundle(db))) {
+    throw new Error("Integrity trigger bootstrap did not install the complete expected bundle.");
+  }
 }
 
 export async function getTrackedFunds(db: D1Database): Promise<TrackedFund[]> {
