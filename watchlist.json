@@ -1,0 +1,9 @@
+{
+  "referenceTicker": "SPY",
+  "funds": [
+    { "ticker": "SPY", "name": "SPDR S&P 500 ETF Trust", "kind": "ETF" },
+    { "ticker": "QQQ", "name": "Invesco QQQ Trust", "kind": "ETF" },
+    { "ticker": "BND", "name": "Vanguard Total Bond Market ETF", "kind": "ETF" },
+    { "ticker": "USA", "name": "Liberty All-Star Equity Fund", "kind": "CEF" }
+  ]
+}

@@ -1,8 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { DashboardSnapshot } from "../lib/dashboard.ts";
-import type { DashboardFund } from "../lib/demo-data.ts";
+import type { DashboardFund, DashboardSnapshot } from "../lib/dashboard";
 
 type Filter = "all" | "priced" | "attention";
 
@@ -57,36 +56,7 @@ function StatusBadge({ status }: { status: DashboardFund["status"] }) {
   );
 }
 
-function ModeNotice({ snapshot }: { snapshot: DashboardSnapshot }) {
-  if (snapshot.mode === "live") return null;
-  const content = {
-    illustrative: {
-      tag: "PREVIEW",
-      text: "Every value below is an illustrative fixture. Preview mode is explicit and stores no live market data.",
-    },
-    setup: {
-      tag: "SETUP",
-      text: "The database is ready, but no completed market session has been ingested yet. No sample prices are being substituted.",
-    },
-    unavailable: {
-      tag: "INCIDENT",
-      text: "Live records could not be loaded. Closewatch is showing no prices rather than replacing them with plausible fixtures.",
-    },
-  }[snapshot.mode];
-  return (
-    <aside className={`demo-banner notice-${snapshot.mode}`} aria-label={`${content.tag} notice`}>
-      <span className="demo-tag">{content.tag}</span>
-      <p>{content.text}</p>
-      <a href="#methodology">See trust rules</a>
-    </aside>
-  );
-}
-
-function SampleTag({ show }: { show: boolean }) {
-  return show ? <span className="sample-tag">SAMPLE</span> : null;
-}
-
-function MobileFundCard({ fund, sample }: { fund: DashboardFund; sample: boolean }) {
+function MobileFundCard({ fund }: { fund: DashboardFund }) {
   return (
     <article className="mobile-fund-card">
       <div className="mobile-fund-head">
@@ -97,7 +67,6 @@ function MobileFundCard({ fund, sample }: { fund: DashboardFund; sample: boolean
             <span>{fund.kind} · US · USD</span>
           </div>
         </div>
-        <SampleTag show={sample} />
       </div>
       <div className="mobile-price-line">
         <div>
@@ -127,8 +96,6 @@ function MobileFundCard({ fund, sample }: { fund: DashboardFund; sample: boolean
 
 export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnapshot }) {
   const [filter, setFilter] = useState<Filter>("all");
-  const isLive = snapshot.mode === "live";
-  const isSample = snapshot.mode === "illustrative";
 
   const visibleFunds = useMemo(() => {
     if (filter === "priced") return snapshot.funds.filter((fund) => fund.status === "priced");
@@ -138,7 +105,7 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
 
   const pricedCount = snapshot.funds.filter((fund) => fund.status === "priced").length;
   const attentionCount = snapshot.funds.length - pricedCount;
-  const metricValue = (value: number) => isLive ? `${value}%` : "—";
+  const metricValue = (value: number) => `${value}%`;
 
   return (
     <main>
@@ -169,8 +136,6 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
           </div>
         </section>
 
-        <ModeNotice snapshot={snapshot} />
-
         <section className="metrics-grid" aria-label="Pipeline overview">
           <article className="metric-card metric-primary">
             <div className="metric-label">
@@ -180,13 +145,13 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
             </div>
             <div className="metric-line">
               <strong>{metricValue(snapshot.resolvedPercent)}</strong>
-              <span className={isLive && snapshot.resolvedPercent === 100 ? "metric-good" : ""}>
-                {isLive ? "Latest session" : "No live denominator"}
+              <span className={snapshot.resolvedPercent === 100 ? "metric-good" : ""}>
+                Latest session
               </span>
             </div>
             <p>Expected records without pipeline defects</p>
             <div className="progress-track" aria-hidden="true">
-              <span style={{ width: isLive ? `${snapshot.resolvedPercent}%` : "0%" }} />
+              <span style={{ width: `${snapshot.resolvedPercent}%` }} />
             </div>
           </article>
 
@@ -198,11 +163,11 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
             </div>
             <div className="metric-line">
               <strong>{metricValue(snapshot.pricedPercent)}</strong>
-              <span>{isLive ? `${pricedCount}/${snapshot.funds.length} priced` : "No live denominator"}</span>
+              <span>{pricedCount}/{snapshot.expectedCount} priced</span>
             </div>
             <p>Genuine closes captured for the same session</p>
             <div className="progress-track progress-indigo" aria-hidden="true">
-              <span style={{ width: isLive ? `${snapshot.pricedPercent}%` : "0%" }} />
+              <span style={{ width: `${snapshot.pricedPercent}%` }} />
             </div>
           </article>
 
@@ -231,7 +196,7 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
               <h2 id="watchlist-title">Previous close</h2>
             </div>
             <div className="as-of">
-              <span>{isSample ? "Illustrative as-of date" : "As of previous close"}</span>
+              <span>As of previous close</span>
               <strong>{snapshot.latestSession}</strong>
             </div>
           </div>
@@ -261,7 +226,7 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
           <div className="table-wrap">
             <table>
               <caption className="sr-only">
-                {isSample ? "Illustrative sample fund prices" : "Fund prices for one common expected session"}
+                Fund prices for one common expected session
               </caption>
               <thead>
                 <tr>
@@ -287,7 +252,6 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
                           <strong>{fund.name}</strong>
                           <span>{fund.kind} · US · USD</span>
                         </div>
-                        <SampleTag show={isSample} />
                       </div>
                     </td>
                     <td>
@@ -309,7 +273,7 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
           <div className="mobile-fund-list">
             {visibleFunds.length === 0
               ? <p className="empty-mobile">No fund records to show.</p>
-              : visibleFunds.map((fund) => <MobileFundCard fund={fund} sample={isSample} key={fund.id} />)}
+              : visibleFunds.map((fund) => <MobileFundCard fund={fund} key={fund.id} />)}
           </div>
         </section>
 
@@ -326,8 +290,8 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
             </article>
             <article>
               <span>02</span>
-              <h3>Revisions leave receipts</h3>
-              <p>Every change advances an unbroken version chain with its full field diff.</p>
+              <h3>One common session</h3>
+              <p>SPY anchors the expected US session, so a stale fund row cannot masquerade as today&apos;s close.</p>
             </article>
             <article>
               <span>03</span>
@@ -339,7 +303,7 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
 
         <footer>
           <span>CLOSEWATCH · Research and monitoring only</span>
-          <span>Price return, not total return · No trading or advice</span>
+          <span>{snapshot.source} · Price return, not total return · No trading or advice</span>
         </footer>
       </div>
     </main>

@@ -65,10 +65,10 @@ commit.
 
 ## What Git does not do
 
-Git does not run the tracker every morning, host the website, store production
-prices, or protect a leaked secret. Hosting runs the worker; D1 stores the
-records; private environment variables hold secrets. Git records the source
-that defines those pieces.
+Git does not run the tracker every morning, host the website, retrieve market
+prices, or protect a leaked secret. GitHub Actions runs the refresh; GitHub
+Pages hosts the static dashboard. Git records the source that defines those
+pieces.
 
 ## A useful picture
 
