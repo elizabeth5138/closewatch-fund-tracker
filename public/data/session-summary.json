@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "session_date": null,
+  "summary": null,
+  "generated_at": null,
+  "attempt_date_utc": null,
+  "attempted_at": null,
+  "input_digest": null,
+  "input": null,
+  "validation": {
+    "passed": false,
+    "numeric_tokens": [],
+    "reasons": ["not_generated"]
+  }
+}
