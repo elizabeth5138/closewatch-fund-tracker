@@ -401,6 +401,55 @@ h1 {
   margin-bottom: 0;
 }
 
+.session-note {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--indigo);
+  margin-bottom: 18px;
+  padding: 20px 22px;
+}
+
+.session-note > div {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.session-note .eyebrow {
+  color: var(--indigo);
+  margin: 0;
+}
+
+.session-note-mark {
+  align-items: center;
+  background: var(--indigo);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  flex: 0 0 24px;
+  font-family: Georgia, serif;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.session-note > p {
+  color: var(--ink);
+  font-family: Georgia, serif;
+  font-size: 19px;
+  line-height: 1.55;
+  margin-bottom: 12px;
+  max-width: 920px;
+}
+
+.session-note small {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .filter-row button {
   background: transparent;
   border: 0;

@@ -37,6 +37,12 @@ jobs:
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: python scripts/fetch_market_data.py
 
+      - name: Generate prose-only session note
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python scripts/summarize_session.py
+
       - name: Commit refreshed data
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |

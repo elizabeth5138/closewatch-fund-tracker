@@ -30,6 +30,17 @@ export type DashboardSnapshot = {
   lastUpdated: string;
   reliabilitySessions: number;
   source: string;
+  sessionSummary: {
+    text: string;
+    source: "model" | "template";
+    label: string;
+  } | null;
+};
+
+export type SessionSummaryData = {
+  session_date: string | null;
+  summary: string | null;
+  source?: "model" | "template";
 };
 
 type MarketFund = {
@@ -108,7 +119,21 @@ function displayReturn(value: string | null): string {
   return value ?? "—";
 }
 
-export function dashboardFromMarketData(data: MarketSnapshot): DashboardSnapshot {
+export function dashboardFromMarketData(
+  data: MarketSnapshot,
+  summary?: SessionSummaryData,
+): DashboardSnapshot {
+  const currentSummary = summary?.session_date === data.marketSession &&
+    summary.summary &&
+    (summary.source === "model" || summary.source === "template")
+    ? {
+        text: summary.summary,
+        source: summary.source,
+        label: summary.source === "model"
+          ? "Machine-generated market note · OpenRouter free model"
+          : "Automated market note · validated fallback",
+      }
+    : null;
   return {
     pipelineState: data.pipeline.state,
     pipelineLabel: data.pipeline.label,
@@ -136,5 +161,6 @@ export function dashboardFromMarketData(data: MarketSnapshot): DashboardSnapshot
     lastUpdated: prettyRunTime(data.generatedAt),
     reliabilitySessions: data.pipeline.successRun,
     source: data.source,
+    sessionSummary: currentSummary,
   };
 }

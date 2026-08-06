@@ -201,6 +201,17 @@ export default function TrackerDashboard({ snapshot }: { snapshot: DashboardSnap
             </div>
           </div>
 
+          {snapshot.sessionSummary ? (
+            <aside className="session-note" aria-label="Automated session note">
+              <div>
+                <span className="session-note-mark" aria-hidden="true">C</span>
+                <p className="eyebrow">{snapshot.sessionSummary.label}</p>
+              </div>
+              <p>{snapshot.sessionSummary.text}</p>
+              <small>Commentary only · all figures come from pipeline data</small>
+            </aside>
+          ) : null}
+
           <div className="filter-row" role="group" aria-label="Filter watchlist">
             {[
               ["all", "All", snapshot.funds.length],
