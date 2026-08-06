@@ -192,6 +192,102 @@
           "new": 1338600
         }
       }
+    },
+    {
+      "recordKey": "SPY|2026-08-06",
+      "ticker": "SPY",
+      "sessionDate": "2026-08-06",
+      "kind": "created",
+      "fromVersion": 0,
+      "toVersion": 1,
+      "detectedAt": "2026-08-06T23:59:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "status": {
+          "old": null,
+          "new": "priced"
+        },
+        "price": {
+          "old": null,
+          "new": "768.559998"
+        },
+        "volume": {
+          "old": null,
+          "new": 33043052
+        }
+      }
+    },
+    {
+      "recordKey": "QQQ|2026-08-06",
+      "ticker": "QQQ",
+      "sessionDate": "2026-08-06",
+      "kind": "created",
+      "fromVersion": 0,
+      "toVersion": 1,
+      "detectedAt": "2026-08-06T23:59:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "status": {
+          "old": null,
+          "new": "priced"
+        },
+        "price": {
+          "old": null,
+          "new": "714.650024"
+        },
+        "volume": {
+          "old": null,
+          "new": 30571597
+        }
+      }
+    },
+    {
+      "recordKey": "BND|2026-08-06",
+      "ticker": "BND",
+      "sessionDate": "2026-08-06",
+      "kind": "created",
+      "fromVersion": 0,
+      "toVersion": 1,
+      "detectedAt": "2026-08-06T23:59:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "status": {
+          "old": null,
+          "new": "priced"
+        },
+        "price": {
+          "old": null,
+          "new": "72.250000"
+        },
+        "volume": {
+          "old": null,
+          "new": 8970730
+        }
+      }
+    },
+    {
+      "recordKey": "USA|2026-08-06",
+      "ticker": "USA",
+      "sessionDate": "2026-08-06",
+      "kind": "created",
+      "fromVersion": 0,
+      "toVersion": 1,
+      "detectedAt": "2026-08-06T23:59:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "status": {
+          "old": null,
+          "new": "priced"
+        },
+        "price": {
+          "old": null,
+          "new": "5.990000"
+        },
+        "volume": {
+          "old": null,
+          "new": 954449
+        }
+      }
     }
   ]
 }

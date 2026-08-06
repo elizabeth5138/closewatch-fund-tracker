@@ -1,15 +1,78 @@
 {
   "schemaVersion": 1,
-  "session_date": null,
+  "session_date": "2026-08-06",
   "summary": null,
   "generated_at": null,
-  "attempt_date_utc": null,
-  "attempted_at": null,
-  "input_digest": null,
-  "input": null,
+  "attempt_date_utc": "2026-08-06",
+  "attempted_at": "2026-08-06T23:59:01Z",
+  "input_digest": "sha256:08ddcd82390ad6944ab708dd9fabec18d0534501ff64ab27cf5e4f1172ab2618",
+  "input": {
+    "session_date": "2026-08-06",
+    "funds": [
+      {
+        "ticker": "SPY",
+        "kind": "ETF",
+        "status": "priced",
+        "previous_close": "768.559998",
+        "returns": {
+          "oneDay": "-0.16%",
+          "oneWeek": "+3.62%",
+          "oneMonth": "+2.30%",
+          "ytd": "+12.71%"
+        }
+      },
+      {
+        "ticker": "QQQ",
+        "kind": "ETF",
+        "status": "priced",
+        "previous_close": "714.650024",
+        "returns": {
+          "oneDay": "-0.37%",
+          "oneWeek": "+4.55%",
+          "oneMonth": "-1.13%",
+          "ytd": "+16.33%"
+        }
+      },
+      {
+        "ticker": "BND",
+        "kind": "ETF",
+        "status": "priced",
+        "previous_close": "72.250000",
+        "returns": {
+          "oneDay": "-0.29%",
+          "oneWeek": "-0.23%",
+          "oneMonth": "-1.22%",
+          "ytd": "-2.46%"
+        }
+      },
+      {
+        "ticker": "USA",
+        "kind": "CEF",
+        "status": "priced",
+        "previous_close": "5.990000",
+        "returns": {
+          "oneDay": "+0.17%",
+          "oneWeek": "+3.10%",
+          "oneMonth": "+2.04%",
+          "ytd": "-4.62%"
+        }
+      }
+    ],
+    "pipeline": {
+      "state": "healthy",
+      "expected": 4,
+      "resolved": 4,
+      "priced": 4,
+      "failed": 0,
+      "health_percent": 100,
+      "completeness_percent": 100
+    }
+  },
   "validation": {
     "passed": false,
     "numeric_tokens": [],
-    "reasons": ["not_generated"]
+    "reasons": [
+      "unavailable"
+    ]
   }
 }
