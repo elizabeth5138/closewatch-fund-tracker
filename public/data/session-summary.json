@@ -1,10 +1,13 @@
 {
   "schemaVersion": 1,
   "session_date": "2026-08-06",
-  "summary": null,
-  "generated_at": null,
-  "attempt_date_utc": "2026-08-06",
-  "attempted_at": "2026-08-06T23:59:01Z",
+  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were mixed across the watchlist.",
+  "source": "template",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "model_router": "openrouter/free",
+  "generated_at": "2026-08-07T00:06:24Z",
+  "attempt_date_utc": "2026-08-07",
+  "attempted_at": "2026-08-07T00:06:24Z",
   "input_digest": "sha256:08ddcd82390ad6944ab708dd9fabec18d0534501ff64ab27cf5e4f1172ab2618",
   "input": {
     "session_date": "2026-08-06",
@@ -70,9 +73,35 @@
   },
   "validation": {
     "passed": false,
-    "numeric_tokens": [],
+    "numeric_tokens": [
+      "%",
+      "+0.17%",
+      "+12.71%",
+      "+16.33%",
+      "+2.04%",
+      "+2.30%",
+      "+3.10%",
+      "+3.62%",
+      "+4.55%",
+      "-0.16%",
+      "-0.23%",
+      "-0.29%",
+      "-0.37%",
+      "-1.13%",
+      "-1.22%",
+      "-2.46%",
+      "-4.62%",
+      "0,",
+      "100%",
+      "4,",
+      "four",
+      "one",
+      "three",
+      "two"
+    ],
     "reasons": [
-      "unavailable"
+      "numeric_content",
+      "invalid_length"
     ]
   }
 }
