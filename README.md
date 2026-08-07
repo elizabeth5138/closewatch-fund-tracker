@@ -27,8 +27,9 @@ existing frontend, and deploys the static result to GitHub Pages. A market
 holiday does not add a fake session because SPY anchors the expected US session.
 
 The optional market note makes at most one OpenRouter call per weekday UTC.
-Model output is accepted only when it contains no numeric expressions, number
-words, currency or percent symbols, markdown, or advice language. See
+Model output is accepted only when every numeric token exactly matches a token
+in the source payload; invented or reformatted figures, markdown, and advice
+language are rejected. Number words are allowed. See
 [`docs/ai-summary.md`](docs/ai-summary.md) for the call budget, validator, audit
 fields, and fail-open behavior.
 

@@ -31,21 +31,30 @@ repository secret**, name it exactly `OPENROUTER_API_KEY`, and paste the key.
 The value stays in GitHub Actions and must never be committed or exposed to the
 browser.
 
-## Numeric firewall
+## Source-number firewall
 
 The model receives a compact, auditable copy of the current market and pipeline
-facts, but its accepted output is qualitative prose only. Validation rejects:
+facts. The validator extracts numeric tokens from both the response and that
+exact payload, strips trailing punctuation such as commas, and requires every
+response token to match a source token exactly. It allows number words and a
+bare percent symbol. This means a stored price or percentage can be quoted, but
+an invented, rounded, or reformatted figure is rejected.
 
-- digits and numeric expressions;
-- number words and ordinals;
-- percent and currency symbols;
+Validation rejects:
+
+- numeric tokens absent from the source payload;
 - markdown or structured output;
 - recommendation and trading language.
 
 Any rejected model response is discarded and replaced by a deterministic
 template derived from the same pipeline facts. The template passes through the
-same validator. No model-produced number is rendered or used in any dashboard
-calculation.
+same validator. Unmatched tokens are stored in `validation.unmatched`.
+
+The length gate is reported separately in `validation.length_gate`. It accepts
+summaries from 40 through 700 characters and records the observed character
+count. The numeric gate is reported in `validation.numeric_gate`, so an
+overlong response and a fabricated figure remain distinct failures. No model
+output is ever used in a dashboard calculation.
 
 ## Fail-open behavior
 

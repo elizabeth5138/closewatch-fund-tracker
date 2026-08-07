@@ -30,16 +30,9 @@ ROUTER_MODEL = "openrouter/free"
 SITE_URL = "https://elizabeth5138.github.io/closewatch-fund-tracker/"
 
 NUMBER_PATTERN = re.compile(r"(?<![A-Za-z])[+-]?(?:\d[\d,]*(?:\.\d+)?|\.\d+)%?")
-WORD_PATTERN = re.compile(r"[A-Za-z]+(?:-[A-Za-z]+)?")
-NUMBER_WORDS = {
-    "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
-    "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-    "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "thirty",
-    "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred",
-    "thousand", "million", "billion", "trillion", "first", "second", "third",
-    "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth",
-    "dozen", "score", "half", "quarter",
-}
+TRAILING_NUMERIC_PUNCTUATION = ",.;:!?)]}\"'"
+MIN_SUMMARY_CHARACTERS = 40
+MAX_SUMMARY_CHARACTERS = 700
 ADVICE_PATTERN = re.compile(
     r"\b(?:buy|sell|hold|recommend|should|undervalued|overvalued|investment opportunity)\b",
     re.IGNORECASE,
@@ -94,24 +87,40 @@ def build_facts(snapshot: dict[str, Any], history: dict[str, Any]) -> dict[str, 
     }
 
 
-def validate_prose(text: str) -> dict[str, Any]:
-    numeric_tokens = NUMBER_PATTERN.findall(text)
-    numeric_words = [
-        word for word in WORD_PATTERN.findall(text.lower()) if word in NUMBER_WORDS
-    ]
-    forbidden_symbols = [symbol for symbol in ("%", "$", "£", "€", "¥", "₹") if symbol in text]
+def extract_numeric_tokens(text: str) -> list[str]:
+    return sorted({
+        token.rstrip(TRAILING_NUMERIC_PUNCTUATION)
+        for token in NUMBER_PATTERN.findall(text)
+        if token.rstrip(TRAILING_NUMERIC_PUNCTUATION)
+    })
+
+
+def validate_prose(text: str, source_payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    numeric_tokens = extract_numeric_tokens(text)
+    source_tokens = set(extract_numeric_tokens(canonical_json(source_payload or {})))
+    unmatched = sorted(token for token in numeric_tokens if token not in source_tokens)
+    character_count = len(text.strip())
+    length_passed = MIN_SUMMARY_CHARACTERS <= character_count <= MAX_SUMMARY_CHARACTERS
     reasons: list[str] = []
-    if numeric_tokens or numeric_words or forbidden_symbols:
-        reasons.append("numeric_content")
+    if unmatched:
+        reasons.append("unmatched_numbers")
     if "\n" in text or any(marker in text for marker in ("```", "{", "}")):
         reasons.append("not_plain_prose")
     if ADVICE_PATTERN.search(text):
         reasons.append("advice_language")
-    if len(text.strip()) < 40 or len(text.strip()) > 700:
+    if not length_passed:
         reasons.append("invalid_length")
     return {
         "passed": not reasons,
-        "numeric_tokens": sorted(set(numeric_tokens + numeric_words + forbidden_symbols)),
+        "numeric_tokens": numeric_tokens,
+        "unmatched": unmatched,
+        "numeric_gate": {"passed": not unmatched},
+        "length_gate": {
+            "passed": length_passed,
+            "characters": character_count,
+            "minimum": MIN_SUMMARY_CHARACTERS,
+            "maximum": MAX_SUMMARY_CHARACTERS,
+        },
         "reasons": reasons,
     }
 
@@ -151,7 +160,7 @@ def template_summary(facts: dict[str, Any]) -> str:
         movement = "Daily price moves were mixed across the watchlist."
 
     summary = f"{opening} {movement}"
-    validation = validate_prose(summary)
+    validation = validate_prose(summary, facts)
     if not validation["passed"]:
         raise AssertionError(f"Deterministic template violated prose contract: {validation}")
     return summary
@@ -183,18 +192,17 @@ def call_openrouter(api_key: str, facts: dict[str, Any]) -> tuple[str, str]:
                 "role": "system",
                 "content": (
                     "Write a short factual market-monitoring note. Use plain prose only. "
-                    "Never output digits, number words, percentages, currency figures, "
-                    "bullet points, markdown, recommendations, or investment advice. "
-                    "Describe direction and pipeline condition qualitatively. Write two or "
-                    "three sentences."
+                    "Only quote numeric figures exactly as they appear in the supplied facts; "
+                    "never calculate, reformat, round, or invent a figure. Number words are "
+                    "allowed. Do not use bullet points, markdown, recommendations, or investment "
+                    "advice. Describe direction and pipeline condition in two or three sentences."
                 ),
             },
             {
                 "role": "user",
                 "content": (
-                    "Summarize these pipeline facts without repeating any number or date. "
-                    "All quantitative values are context only and must not appear in your "
-                    f"answer:\n{canonical_json(facts)}"
+                    "Summarize these pipeline facts. Any numeric token you quote must be copied "
+                    f"verbatim from this payload:\n{canonical_json(facts)}"
                 ),
             },
         ],
@@ -233,7 +241,19 @@ def unavailable_record(
         "attempted_at": now.isoformat().replace("+00:00", "Z") if attempted else None,
         "input_digest": input_digest,
         "input": facts,
-        "validation": {"passed": False, "numeric_tokens": [], "reasons": ["unavailable"]},
+        "validation": {
+            "passed": False,
+            "numeric_tokens": [],
+            "unmatched": [],
+            "numeric_gate": {"passed": None},
+            "length_gate": {
+                "passed": None,
+                "characters": None,
+                "minimum": MIN_SUMMARY_CHARACTERS,
+                "maximum": MAX_SUMMARY_CHARACTERS,
+            },
+            "reasons": ["unavailable"],
+        },
     }
     return payload
 
@@ -283,7 +303,7 @@ def generate_summary(
         print(f"AI note unavailable: {type(exc).__name__}; deployment continues.")
         return "request_failed"
 
-    validation = validate_prose(summary)
+    validation = validate_prose(summary, facts)
     source = "model"
     accepted_summary = summary
     if not validation["passed"]:
@@ -305,7 +325,10 @@ def generate_summary(
         "validation": validation,
     }
     atomic_json_write(output_path, output)
-    print(f"AI note written from {source}; numeric output accepted: false.")
+    print(
+        f"AI note written from {source}; "
+        f"source-number gate passed: {str(validation['numeric_gate']['passed']).lower()}."
+    )
     return source
 
 
