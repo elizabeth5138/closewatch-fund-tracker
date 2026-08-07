@@ -4,7 +4,12 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 
-from scripts.summarize_session import generate_summary, template_summary, validate_prose
+from scripts.summarize_session import (
+    extract_content,
+    generate_summary,
+    template_summary,
+    validate_prose,
+)
 
 
 NOW = datetime(2026, 8, 6, 2, 4, 11, tzinfo=timezone.utc)
@@ -58,6 +63,27 @@ class SummaryTests(unittest.TestCase):
             "funds": [{"returns": {"oneDay": "+0.20%"}}, {"returns": {"oneDay": "-0.10%"}}],
         }
         self.assertTrue(validate_prose(template_summary(facts))["passed"])
+
+    def test_null_model_content_becomes_rejected_empty_output(self):
+        response = {"choices": [{"message": {"content": None}}]}
+        self.assertEqual(extract_content(response), "")
+
+    def test_empty_model_output_uses_template_without_retry(self):
+        calls = []
+
+        def caller(_key, _facts):
+            calls.append(True)
+            return "", "provider/free-model"
+
+        with tempfile.TemporaryDirectory() as directory:
+            funds, history, output = fixture_data(Path(directory))
+            result = generate_summary(funds, history, output, api_key="secret", now=NOW, caller=caller)
+            saved = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(result, "template")
+            self.assertEqual(saved["source"], "template")
+            self.assertEqual(saved["validation"]["reasons"], ["invalid_length"])
+            self.assertTrue(validate_prose(saved["summary"])["passed"])
+            self.assertEqual(len(calls), 1)
 
     def test_missing_key_exits_without_creating_output(self):
         with tempfile.TemporaryDirectory() as directory:

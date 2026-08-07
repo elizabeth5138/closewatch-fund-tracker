@@ -164,14 +164,20 @@ def extract_content(response: dict[str, Any]) -> str:
     if isinstance(content, list):
         parts = [item.get("text", "") for item in content if isinstance(item, dict)]
         return " ".join(" ".join(parts).strip().strip('"').split())
-    raise ValueError("OpenRouter response contained no text")
+    # Some routed reasoning models can complete successfully with a null content
+    # field. Treat that as rejected output so the deterministic template is used
+    # without spending the daily allowance on a retry.
+    if content is None:
+        return ""
+    raise ValueError("OpenRouter response used an unsupported content shape")
 
 
 def call_openrouter(api_key: str, facts: dict[str, Any]) -> tuple[str, str]:
     request_body = {
         "model": ROUTER_MODEL,
         "temperature": 0.2,
-        "max_tokens": 180,
+        "max_tokens": 512,
+        "reasoning": {"effort": "minimal", "exclude": True},
         "messages": [
             {
                 "role": "system",
