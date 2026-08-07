@@ -52,10 +52,46 @@ class SummaryTests(unittest.TestCase):
         )
         self.assertTrue(result["passed"])
 
-    def test_validator_rejects_digits_number_words_and_advice(self):
+    def test_validator_allows_number_words_and_rejects_unmatched_digits_and_advice(self):
         self.assertFalse(validate_prose("The fund rose 2 percent during the session.")["passed"])
-        self.assertFalse(validate_prose("All four funds produced a close during the session.")["passed"])
+        self.assertTrue(validate_prose("All four funds produced a close during the session.")["passed"])
+        self.assertTrue(validate_prose("The bare % symbol appears without a fabricated figure in this note.")["passed"])
         self.assertFalse(validate_prose("Investors should buy after the latest move.")["passed"])
+
+    def test_validator_accepts_figure_that_appears_in_source_payload(self):
+        facts = {
+            "previous_close": "100.120000",
+            "daily_return": "+0.31%",
+            "expected": 4,
+        }
+        result = validate_prose(
+            "All four funds priced cleanly, with a monitored close at $100.120000 "
+            "and a daily price move of +0.31%.",
+            facts,
+        )
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["unmatched"], [])
+        self.assertTrue(result["numeric_gate"]["passed"])
+
+    def test_validator_rejects_figure_missing_from_source_payload(self):
+        facts = {"previous_close": "100.120000", "daily_return": "+0.31%"}
+        result = validate_prose(
+            "The monitored close was $100.130000 while the recorded daily price move "
+            "was +0.31%.",
+            facts,
+        )
+        self.assertFalse(result["passed"])
+        self.assertEqual(result["unmatched"], ["100.130000"])
+        self.assertFalse(result["numeric_gate"]["passed"])
+
+    def test_validator_strips_trailing_numeric_punctuation(self):
+        facts = {"expected": 4, "failed": 0}
+        result = validate_prose(
+            "The pipeline expected 4, and recorded 0, unexplained gaps across the session.",
+            facts,
+        )
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["numeric_tokens"], ["0", "4"])
 
     def test_template_contains_no_numeric_content(self):
         facts = {
@@ -82,6 +118,8 @@ class SummaryTests(unittest.TestCase):
             self.assertEqual(result, "template")
             self.assertEqual(saved["source"], "template")
             self.assertEqual(saved["validation"]["reasons"], ["invalid_length"])
+            self.assertTrue(saved["validation"]["numeric_gate"]["passed"])
+            self.assertFalse(saved["validation"]["length_gate"]["passed"])
             self.assertTrue(validate_prose(saved["summary"])["passed"])
             self.assertEqual(len(calls), 1)
 
@@ -155,6 +193,7 @@ class SummaryTests(unittest.TestCase):
             self.assertEqual(result, "template")
             self.assertEqual(saved["source"], "template")
             self.assertFalse(saved["validation"]["passed"])
+            self.assertEqual(saved["validation"]["unmatched"], ["100%"])
             self.assertTrue(validate_prose(saved["summary"])["passed"])
 
     def test_request_failure_is_recorded_and_not_retried_same_day(self):
