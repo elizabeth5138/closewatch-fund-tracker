@@ -63,6 +63,15 @@
       "priced": 4,
       "failed": 0,
       "status": "succeeded"
+    },
+    {
+      "sessionDate": "2026-08-13",
+      "generatedAt": "2026-08-14T00:10:05Z",
+      "expected": 4,
+      "resolved": 4,
+      "priced": 4,
+      "failed": 0,
+      "status": "succeeded"
     }
   ]
 }
