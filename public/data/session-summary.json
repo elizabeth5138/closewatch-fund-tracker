@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-08-13",
-  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly positive across the watchlist.",
+  "session_date": "2026-08-17",
+  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly negative across the watchlist.",
   "source": "template",
-  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "model": "dots-studio/dots-3-note-preview:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-08-14T00:10:05Z",
-  "attempt_date_utc": "2026-08-14",
-  "attempted_at": "2026-08-14T00:10:05Z",
-  "input_digest": "sha256:07873964c9a3c44d66d87286475efa4c6c127cc71bdda8b0feb63450dd6f2500",
+  "generated_at": "2026-08-17T23:49:19Z",
+  "attempt_date_utc": "2026-08-17",
+  "attempted_at": "2026-08-17T23:49:19Z",
+  "input_digest": "sha256:d78d069e45904521969ac641ed7fd230a853f27b446e83edfc1061af1e90ab26",
   "input": {
-    "session_date": "2026-08-13",
+    "session_date": "2026-08-17",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "777.880005",
+        "previous_close": "772.669983",
         "returns": {
-          "oneDay": "+0.70%",
-          "oneWeek": "+1.21%",
-          "oneMonth": "+3.83%",
-          "ytd": "+14.07%"
+          "oneDay": "-0.47%",
+          "oneWeek": "-0.05%",
+          "oneMonth": "+3.95%",
+          "ytd": "+13.31%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "732.070007",
+        "previous_close": "729.869995",
         "returns": {
-          "oneDay": "+1.16%",
-          "oneWeek": "+2.44%",
-          "oneMonth": "+2.86%",
-          "ytd": "+19.17%"
+          "oneDay": "-0.16%",
+          "oneWeek": "+1.25%",
+          "oneMonth": "+4.97%",
+          "ytd": "+18.81%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "72.480003",
+        "previous_close": "72.160004",
         "returns": {
-          "oneDay": "+0.28%",
-          "oneWeek": "+0.32%",
-          "oneMonth": "-0.03%",
-          "ytd": "-2.15%"
+          "oneDay": "-0.21%",
+          "oneWeek": "+0.01%",
+          "oneMonth": "-0.96%",
+          "ytd": "-2.58%"
         }
       },
       {
         "ticker": "USA",
         "kind": "CEF",
         "status": "priced",
-        "previous_close": "6.080000",
+        "previous_close": "6.050000",
         "returns": {
-          "oneDay": "+0.33%",
-          "oneWeek": "+1.50%",
-          "oneMonth": "+2.01%",
-          "ytd": "-3.18%"
+          "oneDay": "-0.33%",
+          "oneWeek": "+0.33%",
+          "oneMonth": "+5.22%",
+          "ytd": "-3.66%"
         }
       }
     ],
@@ -73,32 +73,14 @@
   },
   "validation": {
     "passed": false,
-    "numeric_tokens": [
-      "+0.28%",
-      "+0.33%",
-      "+0.70%",
-      "+1.16%",
-      "+1.21%",
-      "+14.07%",
-      "+3.83%",
-      "-08",
-      "-13",
-      "0",
-      "100",
-      "2026",
-      "4",
-      "6.080000",
-      "72.480003",
-      "732.070007",
-      "777.880005"
-    ],
+    "numeric_tokens": [],
     "unmatched": [],
     "numeric_gate": {
       "passed": true
     },
     "length_gate": {
       "passed": false,
-      "characters": 1655,
+      "characters": 0,
       "minimum": 40,
       "maximum": 700
     },
