@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-08-31",
-  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were mixed across the watchlist.",
+  "session_date": "2026-09-01",
+  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly negative across the watchlist.",
   "source": "template",
-  "model": "inclusionai/ling-3.0-flash-fin:free",
+  "model": "dots-studio/dots-3-note-preview:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-09-01T02:00:32Z",
-  "attempt_date_utc": "2026-09-01",
-  "attempted_at": "2026-09-01T02:00:32Z",
-  "input_digest": "sha256:2c8dd1da8d6401f4e2291ae72d65719232921e9413c39f3e1d2216a965bd1942",
+  "generated_at": "2026-09-02T01:17:41Z",
+  "attempt_date_utc": "2026-09-02",
+  "attempted_at": "2026-09-02T01:17:41Z",
+  "input_digest": "sha256:9745f33b86d37a5ca8147be44807a6054bbd87787d8161fdc496fa3cd02f6d31",
   "input": {
-    "session_date": "2026-08-31",
+    "session_date": "2026-09-01",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "767.049988",
+        "previous_close": "761.780029",
         "returns": {
-          "oneDay": "-0.30%",
-          "oneWeek": "+0.47%",
-          "oneMonth": "+2.68%",
-          "ytd": "+12.48%"
+          "oneDay": "-0.69%",
+          "oneWeek": "-0.54%",
+          "oneMonth": "+1.97%",
+          "ytd": "+11.71%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "716.760010",
+        "previous_close": "707.640015",
         "returns": {
-          "oneDay": "+0.05%",
-          "oneWeek": "+1.48%",
-          "oneMonth": "+4.18%",
-          "ytd": "+16.68%"
+          "oneDay": "-1.27%",
+          "oneWeek": "-0.43%",
+          "oneMonth": "+2.86%",
+          "ytd": "+15.19%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "72.239998",
+        "previous_close": "71.790001",
         "returns": {
-          "oneDay": "-0.10%",
-          "oneWeek": "-0.18%",
-          "oneMonth": "+0.01%",
-          "ytd": "-2.47%"
+          "oneDay": "-0.62%",
+          "oneWeek": "-1.21%",
+          "oneMonth": "-0.61%",
+          "ytd": "-3.08%"
         }
       },
       {
         "ticker": "USA",
         "kind": "CEF",
         "status": "priced",
-        "previous_close": "5.990000",
+        "previous_close": "5.920000",
         "returns": {
-          "oneDay": "-0.17%",
-          "oneWeek": "-0.17%",
-          "oneMonth": "+3.10%",
-          "ytd": "-4.62%"
+          "oneDay": "-1.17%",
+          "oneWeek": "-1.00%",
+          "oneMonth": "+1.89%",
+          "ytd": "-5.73%"
         }
       }
     ],
@@ -73,31 +73,19 @@
   },
   "validation": {
     "passed": false,
-    "numeric_tokens": [
-      "+0.01%",
-      "+3.10%",
-      "+4.18%",
-      "-08",
-      "-31",
-      "0",
-      "100%",
-      "2026",
-      "4"
-    ],
-    "unmatched": [
-      "100%"
-    ],
+    "numeric_tokens": [],
+    "unmatched": [],
     "numeric_gate": {
-      "passed": false
+      "passed": true
     },
     "length_gate": {
-      "passed": true,
-      "characters": 220,
+      "passed": false,
+      "characters": 0,
       "minimum": 40,
       "maximum": 700
     },
     "reasons": [
-      "unmatched_numbers"
+      "invalid_length"
     ]
   }
 }
