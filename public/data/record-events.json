@@ -1952,6 +1952,70 @@
           "new": 1246203
         }
       }
+    },
+    {
+      "recordKey": "SPY|2026-09-01",
+      "ticker": "SPY",
+      "sessionDate": "2026-09-01",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-03T01:22:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 40112421,
+          "new": 41126300
+        }
+      }
+    },
+    {
+      "recordKey": "QQQ|2026-09-01",
+      "ticker": "QQQ",
+      "sessionDate": "2026-09-01",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-03T01:22:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 34409539,
+          "new": 35236100
+        }
+      }
+    },
+    {
+      "recordKey": "BND|2026-09-01",
+      "ticker": "BND",
+      "sessionDate": "2026-09-01",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-03T01:22:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 8136483,
+          "new": 8138500
+        }
+      }
+    },
+    {
+      "recordKey": "USA|2026-09-01",
+      "ticker": "USA",
+      "sessionDate": "2026-09-01",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-03T01:22:00Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 1246203,
+          "new": 1248800
+        }
+      }
     }
   ]
 }

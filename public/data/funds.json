@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-02T01:17:41Z",
+  "generatedAt": "2026-09-03T01:22:00Z",
   "marketSession": "2026-09-01",
   "source": "Yahoo Finance via yfinance",
   "currency": "USD",
@@ -27,7 +27,7 @@
       "sessionDate": "2026-09-01",
       "status": "priced",
       "price": "761.780029",
-      "volume": 40112421,
+      "volume": 41126300,
       "returns": {
         "oneDay": "-0.69%",
         "oneWeek": "-0.54%",
@@ -49,7 +49,7 @@
         "761.780029"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     },
     {
       "id": "qqq",
@@ -60,7 +60,7 @@
       "sessionDate": "2026-09-01",
       "status": "priced",
       "price": "707.640015",
-      "volume": 34409539,
+      "volume": 35236100,
       "returns": {
         "oneDay": "-1.27%",
         "oneWeek": "-0.43%",
@@ -82,7 +82,7 @@
         "707.640015"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     },
     {
       "id": "bnd",
@@ -93,7 +93,7 @@
       "sessionDate": "2026-09-01",
       "status": "priced",
       "price": "71.790001",
-      "volume": 8136483,
+      "volume": 8138500,
       "returns": {
         "oneDay": "-0.62%",
         "oneWeek": "-1.21%",
@@ -101,7 +101,6 @@
         "ytd": "-3.08%"
       },
       "sparkline": [
-        "72.309998",
         "72.160004",
         "72.220001",
         "72.559998",
@@ -111,11 +110,12 @@
         "72.669998",
         "72.580002",
         "72.540001",
+        "72.309998",
         "72.239998",
         "71.790001"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     },
     {
       "id": "usa",
@@ -126,7 +126,7 @@
       "sessionDate": "2026-09-01",
       "status": "priced",
       "price": "5.920000",
-      "volume": 1246203,
+      "volume": 1248800,
       "returns": {
         "oneDay": "-1.17%",
         "oneWeek": "-1.00%",
@@ -134,7 +134,6 @@
         "ytd": "-5.73%"
       },
       "sparkline": [
-        "6.070000",
         "6.050000",
         "6.010000",
         "6.020000",
@@ -144,11 +143,12 @@
         "5.980000",
         "5.990000",
         "5.990000",
+        "6.000000",
         "5.990000",
         "5.920000"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     }
   ]
 }
