@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-09-04",
-  "summary": "On the session dated 2026-09-04, equity ETFs showed mixed daily direction: SPY closed at 770.190002 with a oneDay return of -0.39%, while QQQ closed at 718.960022 with a oneDay return of +0.18%. Fixed-income and closed-end funds were likewise varied, with BND at 71.949997 (+0.03% oneDay) and USA at 5.970000 (-0.83% oneDay). Year-to-date, QQQ led at +17.04%, SPY followed at +12.94%, while BND sat at -2.86% and USA at -4.94%. The pipeline reported a completeness_percent of 100, a health_percent of 100, with all 4 funds priced, 0 failed, and a state of healthy.",
-  "source": "model",
-  "model": "inclusionai/ling-3.0-flash-fin:free",
+  "session_date": "2026-09-08",
+  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly negative across the watchlist.",
+  "source": "template",
+  "model": "cohere/north-mini-code:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-09-08T01:20:44Z",
-  "attempt_date_utc": "2026-09-08",
-  "attempted_at": "2026-09-08T01:20:44Z",
-  "input_digest": "sha256:57361056223eca5a62011182c72b090a3029e6d8574f5aa462c2fd70e091335b",
+  "generated_at": "2026-09-10T01:22:44Z",
+  "attempt_date_utc": "2026-09-10",
+  "attempted_at": "2026-09-10T01:22:44Z",
+  "input_digest": "sha256:c284868aae52529bb2e8449467e5dd5fbab4b531eb4c4fb0e4cb36b3abbe9726",
   "input": {
-    "session_date": "2026-09-04",
+    "session_date": "2026-09-08",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "770.190002",
+        "previous_close": "765.960022",
         "returns": {
-          "oneDay": "-0.39%",
-          "oneWeek": "+0.11%",
-          "oneMonth": "-0.15%",
-          "ytd": "+12.94%"
+          "oneDay": "-0.55%",
+          "oneWeek": "+0.55%",
+          "oneMonth": "-0.94%",
+          "ytd": "+12.32%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "718.960022",
+        "previous_close": "718.359985",
         "returns": {
-          "oneDay": "+0.18%",
-          "oneWeek": "+0.35%",
-          "oneMonth": "-0.68%",
-          "ytd": "+17.04%"
+          "oneDay": "-0.08%",
+          "oneWeek": "+1.51%",
+          "oneMonth": "-0.65%",
+          "ytd": "+16.94%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "71.949997",
+        "previous_close": "71.889999",
         "returns": {
-          "oneDay": "+0.03%",
-          "oneWeek": "-0.50%",
-          "oneMonth": "-0.68%",
-          "ytd": "-2.86%"
+          "oneDay": "-0.08%",
+          "oneWeek": "+0.14%",
+          "oneMonth": "-0.70%",
+          "ytd": "-2.94%"
         }
       },
       {
         "ticker": "USA",
         "kind": "CEF",
         "status": "priced",
-        "previous_close": "5.970000",
+        "previous_close": "5.950000",
         "returns": {
-          "oneDay": "-0.83%",
-          "oneWeek": "-0.50%",
-          "oneMonth": "+0.34%",
-          "ytd": "-4.94%"
+          "oneDay": "-0.34%",
+          "oneWeek": "+0.51%",
+          "oneMonth": "-1.00%",
+          "ytd": "-5.25%"
         }
       }
     ],
@@ -72,37 +72,20 @@
     }
   },
   "validation": {
-    "passed": true,
-    "numeric_tokens": [
-      "+0.03%",
-      "+0.18%",
-      "+12.94%",
-      "+17.04%",
-      "-0.39%",
-      "-0.83%",
-      "-04",
-      "-09",
-      "-2.86%",
-      "-4.94%",
-      "0",
-      "100",
-      "2026",
-      "4",
-      "5.970000",
-      "71.949997",
-      "718.960022",
-      "770.190002"
-    ],
+    "passed": false,
+    "numeric_tokens": [],
     "unmatched": [],
     "numeric_gate": {
       "passed": true
     },
     "length_gate": {
-      "passed": true,
-      "characters": 564,
+      "passed": false,
+      "characters": 0,
       "minimum": 40,
       "maximum": 700
     },
-    "reasons": []
+    "reasons": [
+      "invalid_length"
+    ]
   }
 }
