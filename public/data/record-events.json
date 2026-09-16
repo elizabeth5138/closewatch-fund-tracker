@@ -2688,6 +2688,54 @@
           "new": 1097394
         }
       }
+    },
+    {
+      "recordKey": "SPY|2026-09-14",
+      "ticker": "SPY",
+      "sessionDate": "2026-09-14",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-16T01:34:39Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 43944500,
+          "new": 43992400
+        }
+      }
+    },
+    {
+      "recordKey": "QQQ|2026-09-14",
+      "ticker": "QQQ",
+      "sessionDate": "2026-09-14",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-16T01:34:39Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 35101000,
+          "new": 35219000
+        }
+      }
+    },
+    {
+      "recordKey": "USA|2026-09-14",
+      "ticker": "USA",
+      "sessionDate": "2026-09-14",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-09-16T01:34:39Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 1097394,
+          "new": 1097400
+        }
+      }
     }
   ]
 }
