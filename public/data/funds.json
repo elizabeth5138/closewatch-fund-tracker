@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-18T01:24:48Z",
-  "marketSession": "2026-09-16",
+  "generatedAt": "2026-09-19T01:28:40Z",
+  "marketSession": "2026-09-18",
   "source": "Yahoo Finance via yfinance",
   "currency": "USD",
   "returnType": "price",
@@ -24,19 +24,17 @@
       "name": "SPDR S&P 500 ETF Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-09-16",
+      "sessionDate": "2026-09-18",
       "status": "priced",
-      "price": "754.049988",
-      "volume": 59217700,
+      "price": "761.690002",
+      "volume": 65308100,
       "returns": {
-        "oneDay": "-0.44%",
-        "oneWeek": "-1.10%",
-        "oneMonth": "-2.87%",
-        "ytd": "+10.58%"
+        "oneDay": "-0.12%",
+        "oneWeek": "-0.34%",
+        "oneMonth": "-0.75%",
+        "ytd": "+11.70%"
       },
       "sparkline": [
-        "767.049988",
-        "761.780029",
         "765.159973",
         "773.169983",
         "770.190002",
@@ -46,10 +44,12 @@
         "764.289978",
         "760.880005",
         "757.390015",
-        "754.049988"
+        "754.049988",
+        "762.599976",
+        "761.690002"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     },
     {
       "id": "qqq",
@@ -57,19 +57,17 @@
       "name": "Invesco QQQ Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-09-16",
+      "sessionDate": "2026-09-18",
       "status": "priced",
-      "price": "704.719971",
-      "volume": 35688000,
+      "price": "721.450012",
+      "volume": 48277100,
       "returns": {
-        "oneDay": "+0.03%",
-        "oneWeek": "-1.62%",
-        "oneMonth": "-3.60%",
-        "ytd": "+14.72%"
+        "oneDay": "+0.63%",
+        "oneWeek": "+0.92%",
+        "oneMonth": "+0.55%",
+        "ytd": "+17.44%"
       },
       "sparkline": [
-        "716.760010",
-        "707.640015",
         "709.239990",
         "717.669983",
         "718.960022",
@@ -79,10 +77,12 @@
         "714.880005",
         "709.179993",
         "704.539978",
-        "704.719971"
+        "704.719971",
+        "716.919983",
+        "721.450012"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     },
     {
       "id": "bnd",
@@ -90,19 +90,17 @@
       "name": "Vanguard Total Bond Market ETF",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-09-16",
+      "sessionDate": "2026-09-18",
       "status": "priced",
-      "price": "71.110001",
-      "volume": 7993000,
+      "price": "71.199997",
+      "volume": 6688400,
       "returns": {
-        "oneDay": "-0.06%",
-        "oneWeek": "-0.86%",
-        "oneMonth": "-1.66%",
-        "ytd": "-4.00%"
+        "oneDay": "-0.38%",
+        "oneWeek": "-0.03%",
+        "oneMonth": "-1.41%",
+        "ytd": "-3.87%"
       },
       "sparkline": [
-        "72.239998",
-        "71.790001",
         "71.830002",
         "71.930000",
         "71.949997",
@@ -112,7 +110,9 @@
         "71.220001",
         "71.169998",
         "71.150002",
-        "71.110001"
+        "71.110001",
+        "71.470001",
+        "71.199997"
       ],
       "error": null,
       "version": 1
@@ -123,19 +123,17 @@
       "name": "Liberty All-Star Equity Fund",
       "kind": "CEF",
       "currency": "USD",
-      "sessionDate": "2026-09-16",
+      "sessionDate": "2026-09-18",
       "status": "priced",
-      "price": "5.900000",
-      "volume": 2361300,
+      "price": "5.840000",
+      "volume": 739920,
       "returns": {
-        "oneDay": "+0.85%",
-        "oneWeek": "0.00%",
-        "oneMonth": "-2.80%",
-        "ytd": "-6.05%"
+        "oneDay": "-0.51%",
+        "oneWeek": "-0.68%",
+        "oneMonth": "-2.83%",
+        "ytd": "-7.01%"
       },
       "sparkline": [
-        "5.990000",
-        "5.920000",
         "5.930000",
         "6.020000",
         "5.970000",
@@ -145,10 +143,12 @@
         "5.880000",
         "5.890000",
         "5.850000",
-        "5.900000"
+        "5.900000",
+        "5.870000",
+        "5.840000"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     }
   ]
 }
