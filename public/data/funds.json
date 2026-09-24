@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-23T01:42:49Z",
-  "marketSession": "2026-09-21",
+  "generatedAt": "2026-09-24T01:36:51Z",
+  "marketSession": "2026-09-23",
   "source": "Yahoo Finance via yfinance",
   "currency": "USD",
   "returnType": "price",
@@ -24,19 +24,17 @@
       "name": "SPDR S&P 500 ETF Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-09-21",
+      "sessionDate": "2026-09-23",
       "status": "priced",
-      "price": "773.500000",
-      "volume": 50484700,
+      "price": "767.809998",
+      "volume": 54880100,
       "returns": {
-        "oneDay": "+1.55%",
-        "oneWeek": "+1.66%",
-        "oneMonth": "+1.02%",
-        "ytd": "+13.43%"
+        "oneDay": "-0.72%",
+        "oneWeek": "+1.82%",
+        "oneMonth": "+0.27%",
+        "ytd": "+12.60%"
       },
       "sparkline": [
-        "773.169983",
-        "770.190002",
         "765.960022",
         "762.400024",
         "757.830017",
@@ -46,10 +44,12 @@
         "754.049988",
         "762.599976",
         "761.690002",
-        "773.500000"
+        "773.500000",
+        "773.380005",
+        "767.809998"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     },
     {
       "id": "qqq",
@@ -57,19 +57,17 @@
       "name": "Invesco QQQ Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-09-21",
+      "sessionDate": "2026-09-23",
       "status": "priced",
-      "price": "741.469971",
-      "volume": 46730600,
+      "price": "741.210022",
+      "volume": 33099900,
       "returns": {
-        "oneDay": "+2.77%",
-        "oneWeek": "+4.55%",
-        "oneMonth": "+3.93%",
-        "ytd": "+20.70%"
+        "oneDay": "-0.84%",
+        "oneWeek": "+5.18%",
+        "oneMonth": "+3.89%",
+        "ytd": "+20.66%"
       },
       "sparkline": [
-        "717.669983",
-        "718.960022",
         "718.359985",
         "716.309998",
         "708.690002",
@@ -79,10 +77,12 @@
         "704.719971",
         "716.919983",
         "721.450012",
-        "741.469971"
+        "741.469971",
+        "747.460022",
+        "741.210022"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     },
     {
       "id": "bnd",
@@ -90,18 +90,17 @@
       "name": "Vanguard Total Bond Market ETF",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-09-21",
+      "sessionDate": "2026-09-23",
       "status": "priced",
-      "price": "71.400002",
-      "volume": 7591100,
+      "price": "70.809998",
+      "volume": 12871900,
       "returns": {
-        "oneDay": "+0.28%",
-        "oneWeek": "+0.32%",
-        "oneMonth": "-1.15%",
-        "ytd": "-3.60%"
+        "oneDay": "-0.83%",
+        "oneWeek": "-0.42%",
+        "oneMonth": "-1.97%",
+        "ytd": "-4.40%"
       },
       "sparkline": [
-        "71.930000",
         "71.949997",
         "71.889999",
         "71.730003",
@@ -112,7 +111,8 @@
         "71.110001",
         "71.470001",
         "71.199997",
-        "71.400002"
+        "71.400002",
+        "70.809998"
       ],
       "error": null,
       "version": 1
@@ -123,18 +123,17 @@
       "name": "Liberty All-Star Equity Fund",
       "kind": "CEF",
       "currency": "USD",
-      "sessionDate": "2026-09-21",
+      "sessionDate": "2026-09-23",
       "status": "priced",
-      "price": "5.920000",
-      "volume": 804100,
+      "price": "5.860000",
+      "volume": 1248669,
       "returns": {
-        "oneDay": "+1.37%",
-        "oneWeek": "+0.51%",
-        "oneMonth": "-1.17%",
-        "ytd": "-5.73%"
+        "oneDay": "-1.01%",
+        "oneWeek": "-0.68%",
+        "oneMonth": "-2.17%",
+        "ytd": "-6.69%"
       },
       "sparkline": [
-        "6.020000",
         "5.970000",
         "5.950000",
         "5.900000",
@@ -145,10 +144,11 @@
         "5.900000",
         "5.870000",
         "5.840000",
-        "5.920000"
+        "5.920000",
+        "5.860000"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     }
   ]
 }
