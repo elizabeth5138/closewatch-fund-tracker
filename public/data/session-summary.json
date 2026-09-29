@@ -1,51 +1,51 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-09-24",
+  "session_date": "2026-09-28",
   "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly negative across the watchlist.",
   "source": "template",
-  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "model": "nvidia/nemotron-3.5-content-safety:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-09-25T01:49:31Z",
-  "attempt_date_utc": "2026-09-25",
-  "attempted_at": "2026-09-25T01:49:31Z",
-  "input_digest": "sha256:c4a29b91cacd4ef7140a87fd07a3278a92e59cffd4984b09b45ae7325833243a",
+  "generated_at": "2026-09-29T02:41:22Z",
+  "attempt_date_utc": "2026-09-29",
+  "attempted_at": "2026-09-29T02:41:22Z",
+  "input_digest": "sha256:c8b4808a30c17aa028238a29ac95a387c14a382d3993cb6515da47a8717da109",
   "input": {
-    "session_date": "2026-09-24",
+    "session_date": "2026-09-28",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "767.179993",
+        "previous_close": "765.609985",
         "returns": {
-          "oneDay": "-0.08%",
-          "oneWeek": "+0.60%",
-          "oneMonth": "+0.49%",
-          "ytd": "+12.50%"
+          "oneDay": "-0.74%",
+          "oneWeek": "-1.02%",
+          "oneMonth": "-0.49%",
+          "ytd": "+12.27%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "741.099976",
+        "previous_close": "736.530029",
         "returns": {
-          "oneDay": "-0.01%",
-          "oneWeek": "+3.37%",
-          "oneMonth": "+4.92%",
-          "ytd": "+20.64%"
+          "oneDay": "-1.07%",
+          "oneWeek": "-0.67%",
+          "oneMonth": "+2.81%",
+          "ytd": "+19.90%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "70.449997",
+        "previous_close": "70.279999",
         "returns": {
-          "oneDay": "-0.51%",
-          "oneWeek": "-1.43%",
-          "oneMonth": "-2.65%",
-          "ytd": "-4.89%"
+          "oneDay": "-0.50%",
+          "oneWeek": "-1.57%",
+          "oneMonth": "-2.81%",
+          "ytd": "-5.12%"
         }
       },
       {
@@ -54,8 +54,8 @@
         "status": "priced",
         "previous_close": "5.830000",
         "returns": {
-          "oneDay": "-0.51%",
-          "oneWeek": "-0.68%",
+          "oneDay": "-0.68%",
+          "oneWeek": "-1.52%",
           "oneMonth": "-2.83%",
           "ytd": "-7.17%"
         }
@@ -73,48 +73,18 @@
   },
   "validation": {
     "passed": false,
-    "numeric_tokens": [
-      "+0.49%",
-      "+0.60%",
-      "+12.50%",
-      "+20.64%",
-      "+3.37%",
-      "+4.92%",
-      "-0.01%",
-      "-0.08%",
-      "-0.51%",
-      "-0.68%",
-      "-09",
-      "-1.43%",
-      "-2.65%",
-      "-2.83%",
-      "-24",
-      "-4.89%",
-      "-7.17%",
-      "0",
-      "100",
-      "2026",
-      "4",
-      "5.830000",
-      "70.449997",
-      "741",
-      "741.099976",
-      "767.179993"
-    ],
-    "unmatched": [
-      "741"
-    ],
+    "numeric_tokens": [],
+    "unmatched": [],
     "numeric_gate": {
-      "passed": false
+      "passed": true
     },
     "length_gate": {
       "passed": false,
-      "characters": 1523,
+      "characters": 17,
       "minimum": 40,
       "maximum": 700
     },
     "reasons": [
-      "unmatched_numbers",
       "invalid_length"
     ]
   }
