@@ -1,51 +1,51 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-09-30",
+  "session_date": "2026-10-01",
   "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were mixed across the watchlist.",
   "source": "template",
-  "model": "nvidia/nemotron-3.5-content-safety:free",
+  "model": "liquid/lfm-2.5-2.6b:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-10-01T02:19:17Z",
-  "attempt_date_utc": "2026-10-01",
-  "attempted_at": "2026-10-01T02:19:17Z",
-  "input_digest": "sha256:a3a6ca78029ed8620e29c1eaba8103d74abfc7f5a48db9aadaff526ca28d36b3",
+  "generated_at": "2026-10-02T02:30:56Z",
+  "attempt_date_utc": "2026-10-02",
+  "attempted_at": "2026-10-02T02:30:56Z",
+  "input_digest": "sha256:746485d964f9fd48319258d88b7f03819498ad5cec3913446ae1b6da142ab71d",
   "input": {
-    "session_date": "2026-09-30",
+    "session_date": "2026-10-01",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "762.630005",
+        "previous_close": "763.989990",
         "returns": {
-          "oneDay": "-0.21%",
-          "oneWeek": "-0.67%",
-          "oneMonth": "-0.87%",
-          "ytd": "+11.84%"
+          "oneDay": "+0.18%",
+          "oneWeek": "-0.42%",
+          "oneMonth": "+0.29%",
+          "ytd": "+12.04%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "739.770020",
+        "previous_close": "742.030029",
         "returns": {
-          "oneDay": "+0.25%",
-          "oneWeek": "-0.19%",
-          "oneMonth": "+3.26%",
-          "ytd": "+20.42%"
+          "oneDay": "+0.31%",
+          "oneWeek": "+0.13%",
+          "oneMonth": "+4.86%",
+          "ytd": "+20.79%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "70.150002",
+        "previous_close": "70.089996",
         "returns": {
-          "oneDay": "-0.11%",
-          "oneWeek": "-0.93%",
-          "oneMonth": "-2.99%",
-          "ytd": "-5.29%"
+          "oneDay": "-0.09%",
+          "oneWeek": "-0.51%",
+          "oneMonth": "-2.37%",
+          "ytd": "-5.37%"
         }
       },
       {
@@ -54,9 +54,9 @@
         "status": "priced",
         "previous_close": "5.770000",
         "returns": {
-          "oneDay": "-0.69%",
-          "oneWeek": "-1.54%",
-          "oneMonth": "-3.83%",
+          "oneDay": "0.00%",
+          "oneWeek": "-1.03%",
+          "oneMonth": "-2.53%",
           "ytd": "-8.12%"
         }
       }
@@ -80,7 +80,7 @@
     },
     "length_gate": {
       "passed": false,
-      "characters": 17,
+      "characters": 0,
       "minimum": 40,
       "maximum": 700
     },
