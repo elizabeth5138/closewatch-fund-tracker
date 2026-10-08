@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-10-06",
-  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly positive across the watchlist.",
+  "session_date": "2026-10-07",
+  "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were broadly negative across the watchlist.",
   "source": "template",
   "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-10-07T02:39:33Z",
-  "attempt_date_utc": "2026-10-07",
-  "attempted_at": "2026-10-07T02:39:33Z",
-  "input_digest": "sha256:44d5a069747248005374d6c316fc36b947347c0648d50762d6b99eb51c1f71be",
+  "generated_at": "2026-10-08T02:51:43Z",
+  "attempt_date_utc": "2026-10-08",
+  "attempted_at": "2026-10-08T02:51:43Z",
+  "input_digest": "sha256:d58d30f19409594843f22c938e2c7e76af41855bf7a53541708df340c360f1c4",
   "input": {
-    "session_date": "2026-10-06",
+    "session_date": "2026-10-07",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "779.090027",
+        "previous_close": "777.219971",
         "returns": {
-          "oneDay": "+0.55%",
-          "oneWeek": "+1.95%",
-          "oneMonth": "+1.16%",
-          "ytd": "+14.25%"
+          "oneDay": "-0.24%",
+          "oneWeek": "+1.91%",
+          "oneMonth": "+0.91%",
+          "ytd": "+13.98%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "759.659973",
+        "previous_close": "757.729980",
         "returns": {
-          "oneDay": "+0.46%",
-          "oneWeek": "+2.94%",
-          "oneMonth": "+5.66%",
-          "ytd": "+23.66%"
+          "oneDay": "-0.25%",
+          "oneWeek": "+2.43%",
+          "oneMonth": "+5.39%",
+          "ytd": "+23.35%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "70.019997",
+        "previous_close": "70.000000",
         "returns": {
-          "oneDay": "+0.20%",
-          "oneWeek": "-0.30%",
-          "oneMonth": "-2.68%",
-          "ytd": "-5.47%"
+          "oneDay": "-0.03%",
+          "oneWeek": "-0.21%",
+          "oneMonth": "-2.71%",
+          "ytd": "-5.49%"
         }
       },
       {
         "ticker": "USA",
         "kind": "CEF",
         "status": "priced",
-        "previous_close": "5.890000",
+        "previous_close": "5.870000",
         "returns": {
-          "oneDay": "+1.38%",
-          "oneWeek": "+1.38%",
-          "oneMonth": "-1.34%",
-          "ytd": "-6.21%"
+          "oneDay": "-0.34%",
+          "oneWeek": "+1.73%",
+          "oneMonth": "-1.68%",
+          "ytd": "-6.53%"
         }
       }
     ],
@@ -74,49 +74,44 @@
   "validation": {
     "passed": false,
     "numeric_tokens": [
-      "+0.20%",
-      "+0.46%",
-      "+0.55%",
-      "+1.16%",
-      "+1.38%",
-      "+1.95%",
-      "+14.25%",
-      "+2.94%",
-      "+23.66%",
-      "+5.66%",
-      "-0.30%",
-      "-06",
-      "-1.34%",
+      "+0.91%",
+      "+1.73%",
+      "+1.91%",
+      "+13.98%",
+      "+2.43%",
+      "+23.35%",
+      "+5.39%",
+      "-0.03%",
+      "-0.21%",
+      "-0.24%",
+      "-0.25%",
+      "-0.34%",
+      "-07",
+      "-1.68%",
       "-10",
-      "-2.68%",
-      "-3",
-      "-5.47%",
-      "-6.21%",
+      "-2.71%",
+      "-5.49%",
+      "-6.53%",
       "0",
       "100",
-      "2",
       "2026",
       "4",
-      "5.890000",
-      "70.019997",
-      "759.659973",
-      "779.090027"
+      "5.870000",
+      "70.000000",
+      "757.729980",
+      "777.219971"
     ],
-    "unmatched": [
-      "-3",
-      "2"
-    ],
+    "unmatched": [],
     "numeric_gate": {
-      "passed": false
+      "passed": true
     },
     "length_gate": {
       "passed": false,
-      "characters": 1625,
+      "characters": 1681,
       "minimum": 40,
       "maximum": 700
     },
     "reasons": [
-      "unmatched_numbers",
       "invalid_length"
     ]
   }
