@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T02:37:59Z",
-  "marketSession": "2026-10-09",
+  "generatedAt": "2026-10-13T03:46:26Z",
+  "marketSession": "2026-10-12",
   "source": "Yahoo Finance via yfinance",
   "currency": "USD",
   "returnType": "price",
@@ -24,18 +24,17 @@
       "name": "SPDR S&P 500 ETF Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-10-09",
+      "sessionDate": "2026-10-12",
       "status": "priced",
-      "price": "778.570007",
-      "volume": 22596500,
+      "price": "778.099976",
+      "volume": 18639800,
       "returns": {
-        "oneDay": "+0.60%",
-        "oneWeek": "+1.16%",
-        "oneMonth": "+2.12%",
-        "ytd": "+14.17%"
+        "oneDay": "-0.06%",
+        "oneWeek": "+0.42%",
+        "oneMonth": "+1.81%",
+        "ytd": "+14.10%"
       },
       "sparkline": [
-        "767.179993",
         "771.349976",
         "765.609985",
         "764.200012",
@@ -46,7 +45,8 @@
         "779.090027",
         "777.219971",
         "773.929993",
-        "778.570007"
+        "778.570007",
+        "778.099976"
       ],
       "error": null,
       "version": 1
@@ -57,18 +57,17 @@
       "name": "Invesco QQQ Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-10-09",
+      "sessionDate": "2026-10-12",
       "status": "priced",
-      "price": "751.270020",
-      "volume": 21122000,
+      "price": "746.039978",
+      "volume": 24936300,
       "returns": {
-        "oneDay": "+0.49%",
-        "oneWeek": "+0.23%",
-        "oneMonth": "+4.88%",
-        "ytd": "+22.29%"
+        "oneDay": "-0.70%",
+        "oneWeek": "-1.34%",
+        "oneMonth": "+4.36%",
+        "ytd": "+21.44%"
       },
       "sparkline": [
-        "741.099976",
         "744.500000",
         "736.530029",
         "737.929993",
@@ -79,7 +78,8 @@
         "759.659973",
         "757.729980",
         "747.580017",
-        "751.270020"
+        "751.270020",
+        "746.039978"
       ],
       "error": null,
       "version": 1
@@ -90,18 +90,17 @@
       "name": "Vanguard Total Bond Market ETF",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-10-09",
+      "sessionDate": "2026-10-12",
       "status": "priced",
-      "price": "70.220001",
-      "volume": 10089400,
+      "price": "70.250000",
+      "volume": 10364500,
       "returns": {
-        "oneDay": "0.00%",
-        "oneWeek": "+0.40%",
-        "oneMonth": "-2.11%",
-        "ytd": "-5.20%"
+        "oneDay": "+0.04%",
+        "oneWeek": "+0.53%",
+        "oneMonth": "-1.36%",
+        "ytd": "-5.16%"
       },
       "sparkline": [
-        "70.449997",
         "70.629997",
         "70.279999",
         "70.230003",
@@ -112,7 +111,8 @@
         "70.019997",
         "70.000000",
         "70.220001",
-        "70.220001"
+        "70.220001",
+        "70.250000"
       ],
       "error": null,
       "version": 1
@@ -123,18 +123,17 @@
       "name": "Liberty All-Star Equity Fund",
       "kind": "CEF",
       "currency": "USD",
-      "sessionDate": "2026-10-09",
+      "sessionDate": "2026-10-12",
       "status": "priced",
-      "price": "5.920000",
-      "volume": 949218,
+      "price": "5.900000",
+      "volume": 513139,
       "returns": {
-        "oneDay": "+1.02%",
-        "oneWeek": "+1.72%",
+        "oneDay": "-0.34%",
+        "oneWeek": "+1.55%",
         "oneMonth": "+0.34%",
-        "ytd": "-5.73%"
+        "ytd": "-6.05%"
       },
       "sparkline": [
-        "5.830000",
         "5.870000",
         "5.830000",
         "5.810000",
@@ -145,7 +144,8 @@
         "5.890000",
         "5.870000",
         "5.860000",
-        "5.920000"
+        "5.920000",
+        "5.900000"
       ],
       "error": null,
       "version": 1
