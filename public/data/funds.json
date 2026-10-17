@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-16T01:36:04Z",
+  "generatedAt": "2026-10-17T01:28:09Z",
   "marketSession": "2026-10-15",
   "source": "Yahoo Finance via yfinance",
   "currency": "USD",
@@ -27,7 +27,7 @@
       "sessionDate": "2026-10-15",
       "status": "priced",
       "price": "771.789978",
-      "volume": 43187500,
+      "volume": 43261600,
       "returns": {
         "oneDay": "+0.28%",
         "oneWeek": "-0.28%",
@@ -49,7 +49,7 @@
         "771.789978"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     },
     {
       "id": "qqq",
@@ -60,7 +60,7 @@
       "sessionDate": "2026-10-15",
       "status": "priced",
       "price": "728.000000",
-      "volume": 49610000,
+      "volume": 49828700,
       "returns": {
         "oneDay": "-0.13%",
         "oneWeek": "-2.62%",
@@ -82,7 +82,7 @@
         "728.000000"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     },
     {
       "id": "bnd",
@@ -126,7 +126,7 @@
       "sessionDate": "2026-10-15",
       "status": "priced",
       "price": "5.980000",
-      "volume": 1200876,
+      "volume": 1200900,
       "returns": {
         "oneDay": "+1.87%",
         "oneWeek": "+2.05%",
@@ -148,7 +148,7 @@
         "5.980000"
       ],
       "error": null,
-      "version": 1
+      "version": 2
     }
   ]
 }
