@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-17T01:28:09Z",
-  "marketSession": "2026-10-15",
+  "generatedAt": "2026-10-20T02:01:14Z",
+  "marketSession": "2026-10-19",
   "source": "Yahoo Finance via yfinance",
   "currency": "USD",
   "returnType": "price",
@@ -24,19 +24,17 @@
       "name": "SPDR S&P 500 ETF Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-10-15",
+      "sessionDate": "2026-10-19",
       "status": "priced",
-      "price": "771.789978",
-      "volume": 43261600,
+      "price": "766.479980",
+      "volume": 38606600,
       "returns": {
-        "oneDay": "+0.28%",
-        "oneWeek": "-0.28%",
-        "oneMonth": "+1.90%",
-        "ytd": "+13.18%"
+        "oneDay": "+0.42%",
+        "oneWeek": "-1.49%",
+        "oneMonth": "+0.63%",
+        "ytd": "+12.40%"
       },
       "sparkline": [
-        "762.630005",
-        "763.989990",
         "769.640015",
         "774.830017",
         "779.090027",
@@ -46,10 +44,12 @@
         "778.099976",
         "778.010010",
         "769.599976",
-        "771.789978"
+        "771.789978",
+        "763.250000",
+        "766.479980"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     },
     {
       "id": "qqq",
@@ -57,19 +57,17 @@
       "name": "Invesco QQQ Trust",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-10-15",
+      "sessionDate": "2026-10-19",
       "status": "priced",
-      "price": "728.000000",
-      "volume": 49828700,
+      "price": "718.359985",
+      "volume": 36961500,
       "returns": {
-        "oneDay": "-0.13%",
-        "oneWeek": "-2.62%",
-        "oneMonth": "+3.33%",
-        "ytd": "+18.51%"
+        "oneDay": "+1.21%",
+        "oneWeek": "-3.71%",
+        "oneMonth": "-0.43%",
+        "ytd": "+16.94%"
       },
       "sparkline": [
-        "739.770020",
-        "742.030029",
         "749.580017",
         "756.200012",
         "759.659973",
@@ -79,10 +77,12 @@
         "746.039978",
         "743.570007",
         "728.950012",
-        "728.000000"
+        "728.000000",
+        "709.799988",
+        "718.359985"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     },
     {
       "id": "bnd",
@@ -90,19 +90,17 @@
       "name": "Vanguard Total Bond Market ETF",
       "kind": "ETF",
       "currency": "USD",
-      "sessionDate": "2026-10-15",
+      "sessionDate": "2026-10-19",
       "status": "priced",
-      "price": "70.809998",
-      "volume": 12638700,
+      "price": "70.599998",
+      "volume": 10040500,
       "returns": {
-        "oneDay": "+0.58%",
-        "oneWeek": "+0.84%",
-        "oneMonth": "-0.48%",
-        "ytd": "-4.40%"
+        "oneDay": "-0.31%",
+        "oneWeek": "+0.50%",
+        "oneMonth": "-0.84%",
+        "ytd": "-4.68%"
       },
       "sparkline": [
-        "70.150002",
-        "70.089996",
         "69.940002",
         "69.879997",
         "70.019997",
@@ -112,7 +110,9 @@
         "70.250000",
         "70.330002",
         "70.400002",
-        "70.809998"
+        "70.809998",
+        "70.820000",
+        "70.599998"
       ],
       "error": null,
       "version": 1
@@ -123,19 +123,17 @@
       "name": "Liberty All-Star Equity Fund",
       "kind": "CEF",
       "currency": "USD",
-      "sessionDate": "2026-10-15",
+      "sessionDate": "2026-10-19",
       "status": "priced",
-      "price": "5.980000",
-      "volume": 1200900,
+      "price": "5.910000",
+      "volume": 1509344,
       "returns": {
-        "oneDay": "+1.87%",
-        "oneWeek": "+2.05%",
-        "oneMonth": "+2.22%",
-        "ytd": "-4.78%"
+        "oneDay": "+0.34%",
+        "oneWeek": "+0.17%",
+        "oneMonth": "+1.20%",
+        "ytd": "-5.89%"
       },
       "sparkline": [
-        "5.770000",
-        "5.770000",
         "5.820000",
         "5.810000",
         "5.890000",
@@ -145,10 +143,12 @@
         "5.900000",
         "5.940000",
         "5.870000",
-        "5.980000"
+        "5.980000",
+        "5.890000",
+        "5.910000"
       ],
       "error": null,
-      "version": 2
+      "version": 1
     }
   ]
 }
