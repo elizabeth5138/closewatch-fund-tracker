@@ -450,6 +450,15 @@
       "priced": 4,
       "failed": 0,
       "status": "succeeded"
+    },
+    {
+      "sessionDate": "2026-10-22",
+      "generatedAt": "2026-10-23T01:49:01Z",
+      "expected": 4,
+      "resolved": 4,
+      "priced": 4,
+      "failed": 0,
+      "status": "succeeded"
     }
   ]
 }
