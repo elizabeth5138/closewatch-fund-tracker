@@ -1,63 +1,63 @@
 {
   "schemaVersion": 1,
-  "session_date": "2026-11-16",
+  "session_date": "2026-11-17",
   "summary": "The latest watchlist session resolved cleanly, with published closes available across the monitored funds. Daily price moves were mixed across the watchlist.",
   "source": "template",
-  "model": "nvidia/nemotron-3.5-super-vl:free",
+  "model": "dots-studio/dots-3-note-preview:free",
   "model_router": "openrouter/free",
-  "generated_at": "2026-11-17T05:12:21Z",
-  "attempt_date_utc": "2026-11-17",
-  "attempted_at": "2026-11-17T05:12:21Z",
-  "input_digest": "sha256:2f8cb73c28df10c2f83c8bd8962f57df986d976f741bb6835e212d0063e4f90c",
+  "generated_at": "2026-11-18T04:39:56Z",
+  "attempt_date_utc": "2026-11-18",
+  "attempted_at": "2026-11-18T04:39:56Z",
+  "input_digest": "sha256:85a73214cf8093cbd8cd7388f67cd3416dceb4b108727fe4fbe04a406b739bcf",
   "input": {
-    "session_date": "2026-11-16",
+    "session_date": "2026-11-17",
     "funds": [
       {
         "ticker": "SPY",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "739.950012",
+        "previous_close": "732.440002",
         "returns": {
-          "oneDay": "-1.91%",
-          "oneWeek": "-1.69%",
-          "oneMonth": "-3.05%",
-          "ytd": "+8.51%"
+          "oneDay": "-1.01%",
+          "oneWeek": "-2.33%",
+          "oneMonth": "-4.04%",
+          "ytd": "+7.41%"
         }
       },
       {
         "ticker": "QQQ",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "661.750000",
+        "previous_close": "656.950012",
         "returns": {
-          "oneDay": "-2.67%",
-          "oneWeek": "-2.59%",
-          "oneMonth": "-6.77%",
-          "ytd": "+7.72%"
+          "oneDay": "-0.73%",
+          "oneWeek": "-2.64%",
+          "oneMonth": "-7.45%",
+          "ytd": "+6.94%"
         }
       },
       {
         "ticker": "BND",
         "kind": "ETF",
         "status": "priced",
-        "previous_close": "70.620003",
+        "previous_close": "70.709999",
         "returns": {
-          "oneDay": "+0.09%",
-          "oneWeek": "-1.40%",
-          "oneMonth": "-0.28%",
-          "ytd": "-4.66%"
+          "oneDay": "+0.13%",
+          "oneWeek": "-0.59%",
+          "oneMonth": "-0.16%",
+          "ytd": "-4.54%"
         }
       },
       {
         "ticker": "USA",
         "kind": "CEF",
         "status": "priced",
-        "previous_close": "5.820000",
+        "previous_close": "5.690000",
         "returns": {
-          "oneDay": "-1.19%",
-          "oneWeek": "-3.96%",
-          "oneMonth": "-1.19%",
-          "ytd": "-7.32%"
+          "oneDay": "-2.23%",
+          "oneWeek": "-5.95%",
+          "oneMonth": "-3.40%",
+          "ytd": "-9.39%"
         }
       }
     ],
