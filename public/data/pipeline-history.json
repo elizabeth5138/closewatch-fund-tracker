@@ -2,15 +2,6 @@
   "schemaVersion": 1,
   "runs": [
     {
-      "sessionDate": "2026-08-20",
-      "generatedAt": "2026-08-20T23:52:43Z",
-      "expected": 4,
-      "resolved": 4,
-      "priced": 4,
-      "failed": 0,
-      "status": "succeeded"
-    },
-    {
       "sessionDate": "2026-08-21",
       "generatedAt": "2026-08-21T23:51:01Z",
       "expected": 4,
@@ -535,6 +526,15 @@
     {
       "sessionDate": "2026-11-20",
       "generatedAt": "2026-11-21T04:13:37Z",
+      "expected": 4,
+      "resolved": 4,
+      "priced": 4,
+      "failed": 0,
+      "status": "succeeded"
+    },
+    {
+      "sessionDate": "2026-11-23",
+      "generatedAt": "2026-11-24T07:03:13Z",
       "expected": 4,
       "resolved": 4,
       "priced": 4,
