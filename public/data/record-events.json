@@ -7488,6 +7488,38 @@
           "new": 2927400
         }
       }
+    },
+    {
+      "recordKey": "SPY|2026-11-25",
+      "ticker": "SPY",
+      "sessionDate": "2026-11-25",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-11-27T05:16:24Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 72919200,
+          "new": 73112800
+        }
+      }
+    },
+    {
+      "recordKey": "QQQ|2026-11-25",
+      "ticker": "QQQ",
+      "sessionDate": "2026-11-25",
+      "kind": "revised",
+      "fromVersion": 1,
+      "toVersion": 2,
+      "detectedAt": "2026-11-27T05:16:24Z",
+      "source": "Yahoo Finance via yfinance",
+      "changes": {
+        "volume": {
+          "old": 81600300,
+          "new": 81996700
+        }
+      }
     }
   ]
 }
